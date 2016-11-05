@@ -1,5 +1,6 @@
 <?php
 
+use Symfony\Component\HttpFoundation\Request;
 use ZWorkshop\EmotionAPI;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -12,11 +13,14 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 $app['debug'] = true;
 
-$app->get('/test-emotion-api', function() {
+$app->get('/test-emotion-api', function(Request $request) {
+
     $emotionApi = new EmotionAPI();
     $imageUrl = 'D:/projects/workshop/source/upload/demo-emotions.jpg';
 
-    return $emotionApi->analyze($imageUrl);
+    $emotions = $emotionApi->analyze($imageUrl);
+    dump($emotions);
+    return '';
 });
 
 
