@@ -30,4 +30,18 @@ $app->get('/admin', function() use ($app){
     ));
 });
 
+$app->post('/save-user-data', function (Request $request) {
+    /*
+     * Do something with the data
+     */
+    dump($request);
+});
+
+$app->post('/process-image', function (Request $request) {
+    /*
+     * Do something with the image
+     */
+    dump($request);
+});
+
 $app->run();
