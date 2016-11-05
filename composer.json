@@ -1,7 +1,8 @@
 {
   "require": {
     "silex/silex": "~2.0",
-    "guzzlehttp/guzzle": "~6.0"
+    "guzzlehttp/guzzle": "~6.0",
+    "twig/twig": "^1.27"
   },
   "autoload": {
     "psr-4": {
