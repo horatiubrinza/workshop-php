@@ -1,0 +1,6 @@
+# Ignore Vagrant files
+.vagrant
+#ignore files for IDEs
+.idea
+#ignore vendor
+vendor
