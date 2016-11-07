@@ -88,15 +88,7 @@ $app->post('/save-user-data', function (Request $request) use ($app) {
         try {
 
             $query = $dbConnection->prepare($sql);
-            $query->execute(array(
-                'firstName' => $firstName,
-                'lastName' => $lastName,
-                'email' => $email,
-                'sex' => $sex,
-                'programmingLanguages' => $programmingLanguages,
-                'userDescription' => $userDescription,
-                'username' => $userName,
-            ));
+            $query->execute($params);
 
             $redirectUrl = 'admin?success=0';
             if($query->rowCount()){
