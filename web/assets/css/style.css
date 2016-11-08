@@ -8,7 +8,7 @@
     padding: 5px;
 }
 
-#user-details,#upload-images, #images-listing{
+#user-details,#upload-images, #images-listing, .messages{
     display: block;
     width: 30%;
     border: 1px solid #000000;

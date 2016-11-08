@@ -3,47 +3,74 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
+
+    {% if message is not empty %}
+        <div class="messages">{{ message }}</div>
+    {% endif %}
+
     <form id="user-details" action="save-user-data" method="post">
         <div>
             <label for="name">Profile data:</label>
         </div>
         <div>
             <label for="name">First Name:</label>
-            <input type="text" id="first-name" name="frist_name" />
+            <input type="text" id="first-name" name="frist_name" value="{{ firstName }}" />
         </div>
 
         <div>
             <label for="name">Last Name:</label>
-            <input type="text" id="last-name" name="last_name" />
+            <input type="text" id="last-name" name="last_name" value="{{ lastName }}" />
         </div>
 
         <div>
             <label for="mail">E-mail:</label>
-            <input type="email" id="mail" name="email" />
+            <input type="email" id="mail" name="email" value="{{ email }}"/>
         </div>
 
         <div>
-            <input type="radio" name="sex" value="MALE" checked> Male<br>
-            <input type="radio" name="sex" value="FEMALE" > Female<br>
+            <input type="radio" name="gender" value="MALE" {{ (gender == 'MALE') ? 'checked' : '' }}> Male<br>
+            <input type="radio" name="gender" value="FEMALE" {{ (gender == 'FEMALE') ? 'checked' : '' }}> Female<br>
         </div>
 
         <div>
             <label for="programming-languages">Known programming languages:</label><br />
-            <input type="checkbox" name="programming_languages[]" value="PHP" checked> PHP<br>
-            <input type="checkbox" name="programming_languages[]" value="JAVA" > JAVA<br>
-            <input type="checkbox" name="programming_languages[]" value="C++" > C++<br>
-            <input type="checkbox" name="programming_languages[]" value="PYTHON" > PYTHON<br>
-            <input type="checkbox" name="programming_languages[]" value="RUBY" > RUBY<br>
-            <input type="checkbox" name="programming_languages[]" value="JAVASCRIPT" > JAVASCRIPT<br>
-            <input type="checkbox" name="programming_languages[]" value="C#" > C#<br>
+
+            <input type="checkbox" name="programming_languages[]" value="PHP"
+                    {{ ('PHP' in programmingLanguages) ? 'checked' : '' }}
+            > PHP<br>
+
+            <input type="checkbox" name="programming_languages[]" value="JAVA"
+                    {{ ('JAVA' in programmingLanguages) ? 'checked' : '' }}
+            > JAVA<br>
+
+            <input type="checkbox" name="programming_languages[]" value="C++"
+                    {{ ('C++' in programmingLanguages) ? 'checked' : '' }}
+            > C++<br>
+
+            <input type="checkbox" name="programming_languages[]" value="PYTHON"
+                    {{ ('PYTHON' in programmingLanguages) ? 'checked' : '' }}
+            > PYTHON<br>
+
+            <input type="checkbox" name="programming_languages[]" value="RUBY"
+                    {{ ('RUBY' in programmingLanguages) ? 'checked' : '' }}
+            > RUBY<br>
+
+            <input type="checkbox" name="programming_languages[]" value="JAVASCRIPT"
+                    {{ ('JAVASCRIPT' in programmingLanguages) ? 'checked' : '' }}
+            > JAVASCRIPT<br>
+
+            <input type="checkbox" name="programming_languages[]" value="C#"
+                    {{ ('C#' in programmingLanguages) ? 'checked' : '' }}
+            > C#<br>
+
         </div>
 
         <div>
             <label for="msg">Short description:</label>
-            <textarea id="msg" name="user_description"></textarea>
+            <textarea id="msg" name="user_description">{{ description }}</textarea>
         </div>
 
-        <input type="submit" name="submit" value="Submit profile data"/>
+        <input type="submit" name="submit" value="Update profile data"/>
     </form>
 
     <form id="upload-images"  action="process-image" method="post" enctype="multipart/form-data">
