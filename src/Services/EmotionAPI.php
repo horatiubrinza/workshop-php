@@ -1,6 +1,6 @@
 <?php
 
-namespace ZWorkshop;
+namespace ZWorkshop\Services;
 
 
 class EmotionAPI

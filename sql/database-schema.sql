@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`FirstName` VARCHAR(100) NOT NULL DEFAULT '',
 	`LastName` VARCHAR(100) NOT NULL DEFAULT '',
 	`Email` VARCHAR(100) NOT NULL DEFAULT '',
-	`Sex` ENUM('MALE','FEMALE') NOT NULL DEFAULT 'MALE',
+	`Gender` ENUM('MALE','FEMALE') NOT NULL DEFAULT 'MALE',
 	`ProgramingLanguages` VARCHAR(500) NOT NULL DEFAULT '' COMMENT 'Programming languages separated by | ex: PHP|JAVA|PYTHON',
 	`Description` TEXT NULL,
 	`Username` VARCHAR(100) NOT NULL DEFAULT '',

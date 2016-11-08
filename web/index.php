@@ -2,7 +2,9 @@
 
 use IPC\Silex\Provider\PDOServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
-use ZWorkshop\EmotionAPI;
+use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use ZWorkshop\Services\EmotionAPI;
+use ZWorkshop\Services\UserProvider;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -57,6 +59,7 @@ $app->get('/admin', function () use ($app) {
  */
 $app->post('/save-user-data', function (Request $request) use ($app) {
 
+    /** @var \PDO $dbConnection */
     $dbConnection = $app['pdo.connection'];
 
     if (isset($request->request)) {
@@ -112,6 +115,33 @@ $app->post('/process-image', function (Request $request) {
      * Do something with the image
      */
     dump($request);
+});
+
+$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+    'security.firewalls' => array(
+        'admin' => array(
+            'pattern' => '^/admin',
+            'form' => array('login_path' => '/login', 'check_path' => '/admin/login_check'),
+            'logout' => array('logout_path' => '/admin/logout', 'invalidate_session' => true),
+            'users' => function () use ($app) {
+                return new UserProvider($app['pdo.connection']);
+            },
+        )
+    ),
+    'security.default_encoder' => function () {
+        // Plain text (e.g. for debugging)
+        return new PlaintextPasswordEncoder();
+    },
+));
+
+$app->register(new Silex\Provider\SessionServiceProvider());
+//$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+
+$app->get('/login', function(Request $request) use ($app) {
+    return $app['twig']->render('login.html.twig', array(
+        'error'         => $app['security.last_error']($request),
+        'last_username' => $app['session']->get('_security.last_username'),
+    ));
 });
 
 $app->run();

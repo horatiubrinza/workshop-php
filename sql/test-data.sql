@@ -1,7 +1,7 @@
 # put insert,update queries here
 USE `php_workshop`;
 
-INSERT INTO `users` (`FirstName`, `LastName`, `Email`, `Sex`, `ProgramingLanguages`, `Description`, `Username`, `Password`)
+INSERT INTO `users` (`FirstName`, `LastName`, `Email`, `Gender`, `ProgramingLanguages`, `Description`, `Username`, `Password`)
 VALUES ('Kristo', 'Godari', 'kristo.godari@gmail.com', 'MALE', 'PHP|JAVA|JAVASCRIPT|C#', 'Software Engineer', 'kristo.godari', 'dbbe0b9e0ffef386cbf307107379782883c0c50b');
 
 INSERT INTO `images` (`IdUser`, `FilePath`, `ProcessingResut`)
