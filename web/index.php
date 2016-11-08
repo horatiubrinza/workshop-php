@@ -2,9 +2,9 @@
 
 use IPC\Silex\Provider\PDOServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 use ZWorkshop\Services\EmotionAPI;
 use ZWorkshop\Services\UserProvider;
+use ZWorkshop\Services\PasswordEncoderService;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -135,7 +135,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     ),
     'security.default_encoder' => function () {
         // Plain text (e.g. for debugging)
-        return new PlaintextPasswordEncoder();
+        return new PasswordEncoderService();
     },
 ));
 
