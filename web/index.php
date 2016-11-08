@@ -21,7 +21,7 @@ $app->register(new PDOServiceProvider(), [
     'pdo.options' => [
         'dsn' => 'mysql:host=localhost;dbname=php_workshop;charset=UTF8',
         'username' => 'root',
-        'password' => '',
+        'password' => 'root',
         'options' => [],
         'attributes' => [],
     ],
@@ -69,20 +69,25 @@ $app->post('/save-user-data', function (Request $request) use ($app) {
         $firstName = $request->request->get('frist_name');
         $lastName = $request->request->get('last_name');
         $email = $request->request->get('email');
-        $sex = $request->request->get('sex');
+        $gender = $request->request->get('gender');
         $userDescription = $request->request->get('user_description');
         $programmingLanguages = implode('|', $request->request->get('programming_languages'));
 
 
-        $sql = "UPDATE `users` SET (`FirstName`, `LastName`, `Email`, `Sex`, `ProgramingLanguages`, `Description`)
-                  VALUES (:firstName, :lastName, :email, :sex, :programmingLanguages, :userDescription)
-                  WHERE `username` = :username;";
+        $sql = "UPDATE `users` 
+                SET `FirstName`= :firstName, 
+                      `LastName` = :lastName, 
+                      `Email` = :email, 
+                      `Gender` = :gender, 
+                      `ProgramingLanguages` = :programmingLanguages, 
+                      `Description` =  :userDescription
+                WHERE `username` = :username;";
 
         $params = [
             ':firstName' => $firstName,
             ':lastName' => $lastName,
             ':email' => $email,
-            ':sex' => $sex,
+            ':gender' => $gender,
             ':programmingLanguages' => $programmingLanguages,
             ':userDescription' => $userDescription,
             ':username' => $userName,
