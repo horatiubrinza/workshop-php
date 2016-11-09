@@ -13,18 +13,14 @@ $app = new Silex\Application();
 /**
  * Register components.
  */
+$app->register(new \Rpodwika\Silex\YamlConfigServiceProvider(__DIR__ . '/../config/settings.yml'));
+
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../src/views',
 ));
 
 $app->register(new PDOServiceProvider(), [
-    'pdo.options' => [
-        'dsn' => 'mysql:host=localhost;dbname=php_workshop;charset=UTF8',
-        'username' => 'root',
-        'password' => 'root',
-        'options' => [],
-        'attributes' => [],
-    ],
+    'pdo.options' => $app['config']['pdo.options'],
 ]);
 
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(

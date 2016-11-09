@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d34df1ba087bd684f679d73c9b57d1ac",
-    "content-hash": "c89654058102acce34b0fbd9c0e1ac38",
+    "hash": "12040b316c1b140c13ff8b7087dcecb4",
+    "content-hash": "324cbf9441fe7cd0034a0c95d71abe24",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -411,6 +411,45 @@
                 "psr-3"
             ],
             "time": "2016-10-10 12:19:37"
+        },
+        {
+            "name": "rpodwika/yaml-config-service-provider",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rpodwika/yaml-config-service-provider.git",
+                "reference": "0c62c9c37ccdd67c68dbe72e133e6e4509ba3cbf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rpodwika/yaml-config-service-provider/zipball/0c62c9c37ccdd67c68dbe72e133e6e4509ba3cbf",
+                "reference": "0c62c9c37ccdd67c68dbe72e133e6e4509ba3cbf",
+                "shasum": ""
+            },
+            "require": {
+                "silex/silex": "^2.0",
+                "symfony/yaml": "^3.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rpodwika\\Silex\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Podwika",
+                    "email": "hello@rpodwika.pl",
+                    "homepage": "http://www.rpodwika.pl",
+                    "role": "developer"
+                }
+            ],
+            "description": "Based on deralex/YamlConfigServiceProvider YAML service provider for silex ~2.0 and symfony/yaml 3.~",
+            "time": "2016-09-15 13:14:21"
         },
         {
             "name": "silex/silex",
@@ -1390,6 +1429,55 @@
                 "dump"
             ],
             "time": "2016-10-18 15:46:07"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v3.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "7ff51b06c6c3d5cc6686df69004a42c69df09e27"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/7ff51b06c6c3d5cc6686df69004a42c69df09e27",
+                "reference": "7ff51b06c6c3d5cc6686df69004a42c69df09e27",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-10-24 18:41:13"
         },
         {
             "name": "twig/twig",
