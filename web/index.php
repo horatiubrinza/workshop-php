@@ -22,7 +22,7 @@ $app->get('/', 'ZWorkshop\\Controllers\\FrontController::index');
 /**
 * Define profile route
 */
-$app->get('/profile/', 'ZWorkshop\\Controllers\\FrontController::profile');
+$app->get('/profile/{username}', 'ZWorkshop\\Controllers\\FrontController::profile');
 
 /**
  * Define login route

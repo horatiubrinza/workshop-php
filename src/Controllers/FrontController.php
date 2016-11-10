@@ -12,8 +12,8 @@ class FrontController
         return $app->redirect('profile');
     }
 
-    public function profile(Application $app, Request $request)
+    public function profile(Application $app, Request $request, $username)
     {
-        return 'profile';
+        return $username;
     }
 }
