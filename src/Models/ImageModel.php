@@ -27,7 +27,7 @@ class ImageModel
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function saveImage($userId, $filePath, $emotions)
+    public function save($userId, $filePath, $emotions)
     {
         $sql = "INSERT INTO `images` (`IdUser`, `FilePath`, `ProcessingResut`)
                 VALUES (:idUser, :filePath, :processingResult)";
@@ -44,7 +44,21 @@ class ImageModel
         return $query->rowCount();
     }
 
-    public function deleteImage($imageId)
+    public function get($imageId)
+    {
+        $sql = "SELECT * FROM `images`
+                WHERE `IdImage` = :imageId;";
+        $params = [
+            ':imageId' => $imageId,
+        ];
+
+        $query = $this->dbConnection->prepare($sql);
+        $query->execute($params);
+
+        return $query->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function delete($imageId)
     {
         $sql = "DELETE FROM `images` WHERE `IdImage` = :imageId;";
         $params = [

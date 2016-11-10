@@ -3,12 +3,17 @@
 namespace ZWorkshop\Controllers;
 
 use Silex\Application;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use ZWorkshop\Models\ImageModel;
 use ZWorkshop\Models\ProfileModel;
 
 class AdminController
 {
+
+    const IMAGE_UPLOAD_DIR = __DIR__ . '/../../upload/';
+
     /**
      * Index action
      *
@@ -101,26 +106,27 @@ class AdminController
         $profileModel = new ProfileModel($dbConnection);
         $profile = $profileModel->get($username);
 
-        // define upload dir
-        $fileUploadDir = __DIR__ . '/../../upload/';
 
         // upload file
+        /** @var UploadedFile $file */
         $file = $request->files->get('file');
         if (is_null($file)) {
             $message = 'No file uploaded!';
         } else {
-            $filename = $file->getClientOriginalName();
+            $filename = uniqid('', true) . '.' . $file->getClientOriginalExtension();
 
-            if (!$file->move($fileUploadDir, $filename)) {
-                $message = 'File uploaded, bit could not be moved!';
-            } else {
-                $filePath = $fileUploadDir . DIRECTORY_SEPARATOR . $filename;
+            try {
+                $file->move(self::IMAGE_UPLOAD_DIR, $filename);
+
                 /**
                  * TODO: call api and process the image
                  */
                 $imageModel = new ImageModel($dbConnection);
-                $imageModel->saveImage($profile['IdUser'], $filePath, 'test json');
+                $imageModel->save($profile['IdUser'], $filename, 'test json');
+
                 $message = 'File was successfully uploaded!';
+            } catch (FileException $e) {
+                $message = 'File uploaded, but could not be moved!';
             }
         }
 
@@ -145,9 +151,13 @@ class AdminController
         $dbConnection = $app['pdo.connection'];
 
         $imageModel = new ImageModel($dbConnection);
+        $image = $imageModel->get($imageId);
+
+        $filePath = self::IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR . $image['FilePath'];
+        unlink($filePath);
 
         $message = 'Successfully deleted image!';
-        if (!$imageModel->deleteImage($imageId)) {
+        if (!$imageModel->delete($imageId)) {
             $message = 'An error occurred, the image was not deleted.';
         }
 
