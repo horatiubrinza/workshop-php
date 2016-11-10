@@ -4,3 +4,5 @@ pdo.options:
   password:
   options:
   attributes:
+
+debug: false

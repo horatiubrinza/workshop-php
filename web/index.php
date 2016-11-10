@@ -1,10 +1,8 @@
 <?php
 
-use IPC\Silex\Provider\PDOServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
+use ZWorkshop\Bootstrap;
 use ZWorkshop\Services\EmotionAPI;
-use ZWorkshop\Services\UserProvider;
-use ZWorkshop\Services\PasswordEncoderService;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -13,37 +11,8 @@ $app = new Silex\Application();
 /**
  * Register components.
  */
-$app->register(new \Rpodwika\Silex\YamlConfigServiceProvider(__DIR__ . '/../config/settings.yml'));
 
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__ . '/../src/views',
-));
-
-$app->register(new PDOServiceProvider(), [
-    'pdo.options' => $app['config']['pdo.options'],
-]);
-
-$app->register(new Silex\Provider\SecurityServiceProvider(), array(
-    'security.firewalls' => array(
-        'admin' => array(
-            'pattern' => '^/admin',
-            'form' => array('login_path' => '/login', 'check_path' => '/admin/login_check'),
-            'logout' => array('logout_path' => '/admin/logout', 'invalidate_session' => true),
-            'users' => function () use ($app) {
-                return new UserProvider($app['pdo.connection']);
-            },
-        )
-    ),
-    'security.default_encoder' => function () {
-        // Plain text (e.g. for debugging)
-        return new PasswordEncoderService();
-    },
-));
-
-$app->register(new Silex\Provider\SessionServiceProvider());
-
-
-$app['debug'] = true;
+Bootstrap::init($app);
 
 /**
  * Test emotion api route
