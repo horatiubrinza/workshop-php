@@ -39,7 +39,8 @@ class Bootstrap
                     'pattern' => '^/admin',
                     'form'    => [
                         'login_path' => '/login',
-                        'check_path' => '/admin/login_check'
+                        'check_path' => '/admin/login_check',
+                        'default_target_path' => '/admin',
                     ],
                     'logout'  => [
                         'logout_path'        => '/admin/logout',
