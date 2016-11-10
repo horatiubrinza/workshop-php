@@ -13,11 +13,22 @@ class UserProvider implements UserProviderInterface
     /** @var \PDO */
     private $conn;
 
+    /**
+     * UserProvider constructor.
+     *
+     * @param \PDO $conn
+     */
     public function __construct(\PDO $conn)
     {
         $this->conn = $conn;
     }
 
+    /**
+     * Loads an user by username
+     *
+     * @param string $username
+     * @return User
+     */
     public function loadUserByUsername($username)
     {
         $query = $this->conn->prepare('SELECT * FROM users WHERE username = :username');
@@ -32,6 +43,10 @@ class UserProvider implements UserProviderInterface
         return new User($user['Username'], $user['Password'], [], true, true, true, true);
     }
 
+    /**
+     * @param UserInterface $user
+     * @return User|UserInterface
+     */
     public function refreshUser(UserInterface $user)
     {
         if (!$user instanceof User) {
@@ -41,6 +56,10 @@ class UserProvider implements UserProviderInterface
         return $this->loadUserByUsername($user->getUsername());
     }
 
+    /**
+     * @param string $class
+     * @return bool
+     */
     public function supportsClass($class)
     {
         return $class === 'Symfony\Component\Security\Core\User\User';

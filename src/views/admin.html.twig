@@ -4,6 +4,8 @@
 
 {% block body %}
 
+    <div class="view-profile"><a href="/profile/{{ username }}" >View Profile</a> </div>
+
     {% if message is not empty %}
         <div class="messages">{{ message }}</div>
     {% endif %}
@@ -80,26 +82,15 @@
     </form>
 
     <div id="images-listing">
-        <label for="name">Images listing:</label><br />
-        <div class="image">
-            <span class="title">Image 1</span>
-            <a href="#" class="delete-link">Delete</a>
-        </div>
-        <div class="image">
-            <span class="title">Image 2</span>
-            <a href="#" class="delete-link">Delete</a>
-        </div>
-        <div class="image">
-            <span class="title">Image 3</span>
-            <a href="#" class="delete-link">Delete</a>
-        </div>
-        <div class="image">
-            <span class="title">Image 4</span>
-            <a href="#" class="delete-link">Delete</a>
-        </div>
-        <div class="image">
-            <span class="title">Image 5</span>
-            <a href="#" class="delete-link">Delete</a>
-        </div>
+        <label for="name">{{ firstName }}'s images:</label><br />
+
+        <ul>
+            {% for image in images %}
+                <li>
+                    <img src="{{ image.FilePath }}" data-images-emotions="{{ image.ProcessingResut }}" />
+                    <a href="/admin/delete-image/{{ image.IdImage }}" >Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}

@@ -7,20 +7,37 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AdminController
 {
+    /**
+     * Login route
+     *
+     * @param Application $app
+     * @param Request $request
+     * @return mixed
+     */
     public function login(Application $app, Request $request)
     {
         return $app['twig']->render('login.html.twig', array(
+            'title' => 'Login',
             'error' => $app['security.last_error']($request),
             'last_username' => $app['session']->get('_security.last_username'),
         ));
     }
 
+    /**
+     * Index route
+     *
+     * @param Application $app
+     * @param Request $request
+     * @return mixed
+     */
     public function index(Application $app, Request $request)
     {
         /** @var \PDO $dbConnection */
         $dbConnection = $app['pdo.connection'];
         $username = $app['security.token_storage']->getToken()->getUser();
+        $message = $request->get('message');
 
+        // get user details
         $sql = "SELECT * FROM `users` WHERE `username` = :username;";
         $params = [
             ':username' => $username,
@@ -28,23 +45,43 @@ class AdminController
 
         $query = $dbConnection->prepare($sql);
         $query->execute($params);
-        $results = $query->fetch();
+        $userDetails = $query->fetch();
 
-        $message = $request->get('message');
+        // get user images
+        $sql = "SELECT `images`.IdImage, `images`.FilePath, `images`.ProcessingResut FROM `users` 
+                JOIN `images` USING(IdUser)
+                WHERE `username` = :username;";
+        $params = [
+            ':username' => $username,
+        ];
+
+        $query = $dbConnection->prepare($sql);
+        $query->execute($params);
+        $userImages = $query->fetchAll();
 
         return $app['twig']->render('admin.html.twig', array(
             'title' => 'Admin Panel',
-            'firstName' => $results['FirstName'],
-            'lastName' =>$results['LastName'],
-            'email' => $results['Email'],
-            'gender' => $results['Gender'],
-            'programmingLanguages' => explode('|', $results['ProgramingLanguages']),
-            'description' => $results['Description'],
+            'username' => $username,
+            'firstName' => $userDetails['FirstName'],
+            'lastName' => $userDetails['LastName'],
+            'email' => $userDetails['Email'],
+            'gender' => $userDetails['Gender'],
+            'programmingLanguages' => explode('|', $userDetails['ProgramingLanguages']),
+            'description' => $userDetails['Description'],
+            'images' => $userImages,
             'message' => $message,
         ));
     }
 
-    public function saveProfile(Application $app, Request $request) {
+    /**
+     * Save profile route
+     *
+     * @param Application $app
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function saveProfile(Application $app, Request $request)
+    {
 
         /** @var \PDO $dbConnection */
         $dbConnection = $app['pdo.connection'];
@@ -105,22 +142,95 @@ class AdminController
         return $app->redirect($redirectUrl);
     }
 
-    public function saveImage(Application $app, Request $request) {
+    /**
+     * Save image route
+     *
+     * @param Application $app
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function saveImage(Application $app, Request $request)
+    {
 
         // define upload dir
-        $fileUploadPath = __DIR__.'/../../upload/';
+        $fileUploadPath = __DIR__ . '/../../upload/';
 
         // upload file
         $file = $request->files->get('file');
         $filename = $file->getClientOriginalName();
-        $file->move($fileUploadPath,$filename);
+        $file->move($fileUploadPath, $filename);
 
         /**
          * TODO: call api and process the image
          */
+        $this->saveImageToDatabase($app, '1', 'test.jpg', 'test json');
 
         // redirect with a message
         $message = 'File was successfully uploaded!';
+        $redirectUrl = '/admin?message=' . $message;
+
+        return $app->redirect($redirectUrl);
+    }
+
+    /**
+     * After processing save image data to database
+     *
+     * @param Application $app
+     * @param $idUser
+     * @param $filePath
+     * @param $processingResult
+     * @return int
+     */
+    private function saveImageToDatabase(Application $app, $idUser, $filePath, $processingResult)
+    {
+
+        /** @var \PDO $dbConnection */
+        $dbConnection = $app['pdo.connection'];
+
+        $sql = "INSERT INTO `images` (`IdUser`, `FilePath`, `ProcessingResut`)
+                VALUES (:idUser, :filePath, :processingResult)";
+
+        $params = [
+            ':idUser' => $idUser,
+            ':filePath' => $filePath,
+            ':processingResult' => $processingResult,
+        ];
+
+        $query = $dbConnection->prepare($sql);
+        $query->execute($params);
+
+        return $query->rowCount();
+    }
+
+    /**
+     * Delete image route
+     *
+     * @param Application $app
+     * @param Request $request
+     * @param $imageId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteImage(Application $app, Request $request, $imageId)
+    {
+
+        /** @var \PDO $dbConnection */
+        $dbConnection = $app['pdo.connection'];
+
+        // get user details
+        $sql = "DELETE FROM `images` WHERE `IdImage` = :imageId;";
+        $params = [
+            ':imageId' => $imageId,
+        ];
+
+        $query = $dbConnection->prepare($sql);
+        $query->execute($params);
+
+        $message = 'Successfully deleted Image!';
+        if (!$query->rowCount()) {
+            $message = 'An error occuried the image was not deleted.';
+        }
+
+        // redirect with a message
         $redirectUrl = '/admin?message=' . $message;
 
         return $app->redirect($redirectUrl);

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+    <div id="user-data">
+        <span>{{ firstName }} {{ lastName }}</span>
+        <span>({{ username }})</span>
+        <span class="login-link"><a href="/login">Login</a></span>
+    </div>
+
+    <div id="gallery-listing">
+        <label for="name">{{ firstName }}'s images:</label><br />
+
+        <ul>
+            {% for image in images %}
+                <li>
+                    <img src="{{ image.FilePath }}" data-images-emotions="{{ image.ProcessingResut }}" />
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+{% endblock %}

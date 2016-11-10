@@ -6,12 +6,14 @@ use ZWorkshop\Services\EmotionAPI;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+/**
+ * Initialize Aplication
+ */
 $app = new Silex\Application();
 
 /**
- * Register components.
+ * Register services
  */
-
 Bootstrap::init($app);
 
 /**
@@ -35,15 +37,19 @@ $app->get('/login/', 'ZWorkshop\\Controllers\\AdminController::login');
 $app->get('/admin/', 'ZWorkshop\\Controllers\\AdminController::index');
 
 /**
- * Define save-user-data route
+ * Define save-profile rute
  */
 $app->post('/admin/save-profile', 'ZWorkshop\\Controllers\\AdminController::saveProfile');
 
-
 /**
- * Define save-user-data route
+ * Define save-image route
  */
 $app->post('/admin/save-image', 'ZWorkshop\\Controllers\\AdminController::saveImage');
+
+/**
+ * Define delete-image route
+ */
+$app->get('/admin/delete-image/{imageId}', 'ZWorkshop\\Controllers\\AdminController::deleteImage');
 
 /**
  * Test emotion api route
@@ -57,6 +63,5 @@ $app->get('/test-emotion-api', function (Request $request) {
     dump($emotions);
     return '';
 });
-
 
 $app->run();

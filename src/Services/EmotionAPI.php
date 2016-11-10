@@ -2,7 +2,6 @@
 
 namespace ZWorkshop\Services;
 
-
 class EmotionAPI
 {
     const ENDPOINT = 'https://api.projectoxford.ai/emotion/v1.0/recognize';
@@ -10,6 +9,13 @@ class EmotionAPI
     const API_KEY = '383ce9382c0e437293003c8328319ccc';
 
 
+    /**
+     * @param $image
+     * @param bool $isUrl
+     * @param bool $faceRectangles
+     * @param bool $debug
+     * @return mixed
+     */
     public function analyze($image, $isUrl = false, $faceRectangles = false, $debug = false)
     {
         $ch = curl_init();
