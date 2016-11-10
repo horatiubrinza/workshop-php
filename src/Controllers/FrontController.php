@@ -14,6 +14,6 @@ class FrontController
 
     public function profile(Application $app, Request $request, $username)
     {
-        return $username;
+        $app->abort(404, "Username $username does not exist.");
     }
 }
