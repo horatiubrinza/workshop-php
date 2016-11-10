@@ -10,7 +10,7 @@ use ZWorkshop\Models\ProfileModel;
 class FrontController
 {
     /**
-     * Index route
+     * Index action
      *
      * @param Application $app
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -21,13 +21,12 @@ class FrontController
     }
 
     /**
-     * Profile route
+     * Profile action
      *
      * @param Application $app
-     * @param Request $request
      * @param $username
      */
-    public function profile(Application $app, Request $request, $username)
+    public function profile(Application $app, $username)
     {
         /** @var \PDO $dbConnection */
         $dbConnection = $app['pdo.connection'];
@@ -50,5 +49,27 @@ class FrontController
             'lastName' => $userData['LastName'],
             'images' => $userImages,
         ));
+    }
+
+    /**
+     * Login action
+     *
+     * @param Application $app
+     * @param Request $request
+     * @return mixed
+     */
+    public function login(Application $app, Request $request)
+    {
+        $token = $app['security.token_storage']->getToken();
+        if ($token) {
+            //user is logged in, go to admin page
+            return $app->redirect('/admin');
+        }
+
+        return $app['twig']->render('login.html.twig', [
+            'title'         => 'Login',
+            'error'         => $app['security.last_error']($request),
+            'last_username' => $app['session']->get('_security.last_username'),
+        ]);
     }
 }

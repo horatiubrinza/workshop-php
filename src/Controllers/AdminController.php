@@ -10,23 +10,7 @@ use ZWorkshop\Models\ProfileModel;
 class AdminController
 {
     /**
-     * Login route
-     *
-     * @param Application $app
-     * @param Request $request
-     * @return mixed
-     */
-    public function login(Application $app, Request $request)
-    {
-        return $app['twig']->render('login.html.twig', [
-            'title'         => 'Login',
-            'error'         => $app['security.last_error']($request),
-            'last_username' => $app['session']->get('_security.last_username'),
-        ]);
-    }
-
-    /**
-     * Index route
+     * Index action
      *
      * @param Application $app
      * @param Request $request
@@ -34,7 +18,6 @@ class AdminController
      */
     public function index(Application $app, Request $request)
     {
-        /** @var \PDO $dbConnection */
         $username = $app['security.token_storage']->getToken()->getUser();
         $message = $request->get('message');
 
@@ -61,7 +44,7 @@ class AdminController
     }
 
     /**
-     * Save profile route
+     * Save profile action
      *
      * @param Application $app
      * @param Request $request
@@ -104,7 +87,7 @@ class AdminController
     }
 
     /**
-     * Save image route
+     * Save image action
      *
      * @param Application $app
      * @param Request $request
@@ -148,7 +131,7 @@ class AdminController
     }
 
     /**
-     * Delete image route
+     * Delete image action
      *
      * @param Application $app
      * @param Request $request

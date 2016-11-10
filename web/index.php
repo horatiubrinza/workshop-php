@@ -29,7 +29,7 @@ $app->get('/profile/{username}', 'ZWorkshop\\Controllers\\FrontController::profi
 /**
  * Define login route
  */
-$app->get('/login/', 'ZWorkshop\\Controllers\\AdminController::login');
+$app->get('/login/', 'ZWorkshop\\Controllers\\FrontController::login');
 
 /**
  * Define admin route
