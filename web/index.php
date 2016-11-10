@@ -22,17 +22,17 @@ $app->get('/', 'ZWorkshop\\Controllers\\FrontController::index');
 /**
 * Define profile route
 */
-$app->get('/profile', 'ZWorkshop\\Controllers\\FrontController::profile');
+$app->get('/profile/', 'ZWorkshop\\Controllers\\FrontController::profile');
 
 /**
  * Define login route
  */
-$app->get('/login', 'ZWorkshop\\Controllers\\AdminController::login');
+$app->get('/login/', 'ZWorkshop\\Controllers\\AdminController::login');
 
 /**
  * Define admin route
  */
-$app->get('/admin', 'ZWorkshop\\Controllers\\AdminController::index');
+$app->get('/admin/', 'ZWorkshop\\Controllers\\AdminController::index');
 
 /**
  * Define save-user-data route

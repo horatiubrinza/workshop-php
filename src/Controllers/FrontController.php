@@ -12,7 +12,7 @@ class FrontController
         return $app->redirect('profile');
     }
 
-    public function profile(Application $app)
+    public function profile(Application $app, Request $request)
     {
         return 'profile';
     }
