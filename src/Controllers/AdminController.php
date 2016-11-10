@@ -104,4 +104,25 @@ class AdminController
 
         return $app->redirect($redirectUrl);
     }
+
+    public function saveImage(Application $app, Request $request) {
+
+        // define upload dir
+        $fileUploadPath = __DIR__.'/../../upload/';
+
+        // upload file
+        $file = $request->files->get('file');
+        $filename = $file->getClientOriginalName();
+        $file->move($fileUploadPath,$filename);
+
+        /**
+         * TODO: call api and process the image
+         */
+
+        // redirect with a message
+        $message = 'File was successfully uploaded!';
+        $redirectUrl = '/admin?message=' . $message;
+
+        return $app->redirect($redirectUrl);
+    }
 }

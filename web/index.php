@@ -37,9 +37,13 @@ $app->get('/admin', 'ZWorkshop\\Controllers\\AdminController::index');
 /**
  * Define save-user-data route
  */
-$app->post('/admin/save-user-data', 'ZWorkshop\\Controllers\\AdminController::saveProfile');
+$app->post('/admin/save-profile', 'ZWorkshop\\Controllers\\AdminController::saveProfile');
 
 
+/**
+ * Define save-user-data route
+ */
+$app->post('/admin/save-image', 'ZWorkshop\\Controllers\\AdminController::saveImage');
 
 /**
  * Test emotion api route
@@ -54,29 +58,5 @@ $app->get('/test-emotion-api', function (Request $request) {
     return '';
 });
 
-/**
- * Define process-image route
- */
-$app->post('/process-image', function (Request $request) use ($app){
-
-    // define upload dir
-    $fileUploadPath = __DIR__.'/../upload/';
-
-    // upload file
-    $file = $request->files->get('file');
-    $filename = $file->getClientOriginalName();
-    $file->move($fileUploadPath,$filename);
-
-    /**
-     * TODO: call api and process the image
-     */
-
-    // redirect with a message
-    $message = 'File was successfully uploaded!';
-    $redirectUrl = 'admin?message=' . $message;
-
-    return $app->redirect($redirectUrl);
-
-});
 
 $app->run();

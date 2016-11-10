@@ -8,7 +8,7 @@
         <div class="messages">{{ message }}</div>
     {% endif %}
 
-    <form id="user-details" action="/admin/save-user-data" method="post">
+    <form id="user-details" action="/admin/save-profile" method="post">
         <div>
             <label for="name">Profile data:</label>
         </div>
@@ -73,7 +73,7 @@
         <input type="submit" name="submit" value="Update profile data"/>
     </form>
 
-    <form id="upload-images"  action="process-image" method="post" enctype="multipart/form-data">
+    <form id="upload-images"  action="/admin/save-image" method="post" enctype="multipart/form-data">
         <label for="name">Upload images:</label><br />
         <input type="file" name="file"><br />
         <input type="submit" name="submit" value="Submit Image"/>
