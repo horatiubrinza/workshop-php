@@ -12,7 +12,7 @@ class ImageModel
         $this->dbConnection = $dbConnection;
     }
 
-    public function getUserImages($username)
+    public function getUserCollection($username)
     {
         $sql = "SELECT `images`.IdImage, `images`.FilePath, `images`.ProcessingResut FROM `users`
                 JOIN `images` USING(IdUser)

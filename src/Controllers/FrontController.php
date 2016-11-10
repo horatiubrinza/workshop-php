@@ -40,7 +40,7 @@ class FrontController
         }
 
         $imageModel = new ImageModel($dbConnection);
-        $userImages = $imageModel->getUserImages($username);
+        $userImages = $imageModel->getUserCollection($username);
 
         return $app['twig']->render('profile.html.twig', array(
             'title' => 'Profile Page',

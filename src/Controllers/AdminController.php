@@ -32,7 +32,7 @@ class AdminController
 
         // get user images
         $imageModel = new ImageModel($app['pdo.connection']);
-        $userImages = $imageModel->getUserImages($username);
+        $userImages = $imageModel->getUserCollection($username);
 
         return $app['twig']->render('admin.html.twig', [
             'title'                => 'Admin Panel',
