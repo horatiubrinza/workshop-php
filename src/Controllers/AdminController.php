@@ -133,9 +133,11 @@ class AdminController
                 $emotions = json_encode($emotionApi->analyze($imageUrl));
 
                 $imageModel = new ImageModel($dbConnection);
-                $imageModel->save($profile['IdUser'], $filename, $emotions);
-
-                $message = 'File was successfully uploaded!';
+                if ($imageModel->save($profile['IdUser'], $filename, $emotions)) {
+                    $message = 'File was successfully uploaded!';
+                } else {
+                    $message = 'File uploaded, but record not saved in database!';
+                }
             } catch (FileException $e) {
                 $message = 'File uploaded, but could not be moved!';
             }

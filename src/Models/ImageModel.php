@@ -23,7 +23,7 @@ class ImageModel
      */
     public function getUserCollection($username)
     {
-        $sql = "SELECT `images`.IdImage, `images`.FileName, `images`.ProcessingResut FROM `users`
+        $sql = "SELECT `images`.IdImage, `images`.FileName, `images`.ProcessingResult FROM `users`
                 JOIN `images` USING(IdUser)
                 WHERE `username` = :username;";
         $params = [
@@ -38,7 +38,7 @@ class ImageModel
 
     public function save($userId, $fileName, $emotions)
     {
-        $sql = "INSERT INTO `images` (`IdUser`, `FileName`, `ProcessingResut`)
+        $sql = "INSERT INTO `images` (`IdUser`, `FileName`, `ProcessingResult`)
                 VALUES (:idUser, :fileName, :processingResult)";
 
         $params = [

@@ -36,3 +36,7 @@ a{
 .login-link{
     float: right;
 }
+
+#images-listing img{
+    max-height: 100px;
+}
