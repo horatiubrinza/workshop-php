@@ -7,11 +7,20 @@ class ProfileModel
     /** @var \PDO */
     private $dbConnection;
 
+    /**
+     * ProfileModel constructor.
+     *
+     * @param \PDO $dbConnection
+     */
     public function __construct(\PDO $dbConnection)
     {
         $this->dbConnection = $dbConnection;
     }
 
+    /**
+     * @param $username
+     * @return mixed
+     */
     public function get($username)
     {
         // get user details
@@ -26,6 +35,16 @@ class ProfileModel
         return $query->fetch(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param $username
+     * @param $firstName
+     * @param $lastName
+     * @param $email
+     * @param $gender
+     * @param $programmingLanguages
+     * @param $userDescription
+     * @return int
+     */
     public function save(
         $username,
         $firstName,

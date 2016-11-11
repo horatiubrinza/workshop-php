@@ -5,7 +5,6 @@
         "This file is @generated automatically"
     ],
     "hash": "12040b316c1b140c13ff8b7087dcecb4",
-    "content-hash": "324cbf9441fe7cd0034a0c95d71abe24",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",

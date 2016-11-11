@@ -74,8 +74,16 @@ class AdminController
             $profileModel = new ProfileModel($app['pdo.connection']);
 
             try {
-                $result = $profileModel->save($username, $firstName, $lastName, $email, $gender, $programmingLanguages,
-                    $userDescription);
+
+                $result = $profileModel->save(
+                    $username,
+                    $firstName,
+                    $lastName,
+                    $email,
+                    $gender,
+                    $programmingLanguages,
+                    $userDescription
+                );
 
                 // check for updated rows
                 $message = $result ? 'Successfully updated user data!' : 'User data was not changed!';
@@ -153,7 +161,7 @@ class AdminController
         $imageModel = new ImageModel($dbConnection);
         $image = $imageModel->get($imageId);
 
-        $filePath = self::IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR . $image['FilePath'];
+        $filePath = self::IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR . $image['FileName'];
         unlink($filePath);
 
         $message = 'Successfully deleted image!';

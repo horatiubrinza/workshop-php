@@ -16,7 +16,7 @@
         <ul>
             {% for image in images %}
                 <li>
-                    <img src="{{ image.FilePath }}" data-images-emotions="{{ image.ProcessingResut }}" />
+                    <img src="../uploads/{{ image.FileName }}" data-images-emotions="{{ image.ProcessingResut }}" />
                 </li>
             {% endfor %}
         </ul>

@@ -26,7 +26,7 @@ class Bootstrap
 
         //register Twig service provider
         $app->register(new TwigServiceProvider(), [
-            'twig.path' => __DIR__ . '/../src/views',
+            'twig.path' => __DIR__ . '/../src/Views',
         ]);
 
         //register session service provider

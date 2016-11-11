@@ -7,14 +7,23 @@ class ImageModel
     /** @var \PDO */
     private $dbConnection;
 
+    /***
+     * ImageModel constructor.
+     *
+     * @param \PDO $dbConnection
+     */
     public function __construct(\PDO $dbConnection)
     {
         $this->dbConnection = $dbConnection;
     }
 
+    /**
+     * @param $username
+     * @return array
+     */
     public function getUserCollection($username)
     {
-        $sql = "SELECT `images`.IdImage, `images`.FilePath, `images`.ProcessingResut FROM `users`
+        $sql = "SELECT `images`.IdImage, `images`.FileName, `images`.ProcessingResut FROM `users`
                 JOIN `images` USING(IdUser)
                 WHERE `username` = :username;";
         $params = [
@@ -27,14 +36,14 @@ class ImageModel
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function save($userId, $filePath, $emotions)
+    public function save($userId, $fileName, $emotions)
     {
-        $sql = "INSERT INTO `images` (`IdUser`, `FilePath`, `ProcessingResut`)
-                VALUES (:idUser, :filePath, :processingResult)";
+        $sql = "INSERT INTO `images` (`IdUser`, `FileName`, `ProcessingResut`)
+                VALUES (:idUser, :fileName, :processingResult)";
 
         $params = [
             ':idUser'           => $userId,
-            ':filePath'         => $filePath,
+            ':fileName'         => $fileName,
             ':processingResult' => $emotions,
         ];
 
@@ -44,6 +53,10 @@ class ImageModel
         return $query->rowCount();
     }
 
+    /**
+     * @param $imageId
+     * @return mixed
+     */
     public function get($imageId)
     {
         $sql = "SELECT * FROM `images`
@@ -58,6 +71,10 @@ class ImageModel
         return $query->fetch(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param $imageId
+     * @return int
+     */
     public function delete($imageId)
     {
         $sql = "DELETE FROM `images` WHERE `IdImage` = :imageId;";
