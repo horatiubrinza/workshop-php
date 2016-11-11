@@ -7,7 +7,13 @@
     <div id="user-data">
         <span>{{ firstName }} {{ lastName }}</span>
         <span>({{ username }})</span>
-        <span class="login-link"><a href="/login">Login</a></span>
+        <span class="login-link">
+            {% if is_granted('ROLE_USER') %}
+                <a href="/admin/logout">Logout</a>
+            {% else %}
+                <a href="/login">Login</a>
+            {% endif %}
+        </span>
     </div>
 
     <div id="gallery-listing">

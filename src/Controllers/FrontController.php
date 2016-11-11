@@ -60,8 +60,8 @@ class FrontController
      */
     public function login(Application $app, Request $request)
     {
-        $token = $app['security.token_storage']->getToken();
-        if ($token) {
+        //if user is logged in, redirect to admin page
+        if ($app['security.token_storage']->getToken()) {
             //user is logged in, go to admin page
             return $app->redirect('/admin');
         }
