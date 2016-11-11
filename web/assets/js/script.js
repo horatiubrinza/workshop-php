@@ -12,7 +12,7 @@ EmotionsDisplay.prototype.init = function () {
         .on('init beforeChange', function(event, slick, currentSlide, nextSlide){
 
             var slideIndex = typeof nextSlide == 'undefined' ? 0 : nextSlide;
-            var slideImg = $(this).find('img').eq(slideIndex + 1);
+            var slideImg = $(this).find('.slick-slide:not(.slick-cloned) img').eq(slideIndex);
 
             //console.log(slideIndex, slideImg[0]);
 
@@ -47,7 +47,7 @@ EmotionsDisplay.prototype.renderEmotions = function (image) {
                 }
             }
 
-            var renderedFaceEmotions = $('<div class="emotion">').html(maxEmotion + ', precision ' + scores[maxEmotion]);
+            var renderedFaceEmotions = $('<div class="emotion">').html(maxEmotion + ', probability ' + scores[maxEmotion]);
 
             content.append(renderedFaceEmotions);
         }
