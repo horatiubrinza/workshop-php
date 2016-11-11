@@ -2,12 +2,19 @@
 
 namespace ZWorkshop\Services;
 
-class EmotionAPI
+use Silex\Application;
+
+class EmotionService
 {
     const ENDPOINT = 'https://api.projectoxford.ai/emotion/v1.0/recognize';
 
-    const API_KEY = '383ce9382c0e437293003c8328319ccc';
+    /** @var Application */
+    private $app;
 
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
 
     /**
      * @param $image
@@ -37,7 +44,7 @@ class EmotionAPI
 
         $headers = [
             'Content-Type: ' . ($isUrl ? 'application/json' : 'application/octet-stream'),
-            'Ocp-Apim-Subscription-Key: ' . self::API_KEY,
+            'Ocp-Apim-Subscription-Key: ' . $this->app['config']['emotion_api']['key'],
         ];
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);

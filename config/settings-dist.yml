@@ -5,4 +5,7 @@ pdo.options:
   options:
   attributes:
 
+emotion_api:
+  key: 1b6ae97a7c0d466d942ff3522fef6378 # or 446aff774b12476c84228b8f3d93983b
+
 debug: false
