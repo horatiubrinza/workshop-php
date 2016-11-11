@@ -4,93 +4,117 @@
 
 {% block body %}
 
-    <div class="view-profile"><a href="/profile/{{ username }}" >View Profile</a> </div>
-
-    {% if message is not empty %}
-        <div class="messages">{{ message }}</div>
-    {% endif %}
-
-    <form id="user-details" action="/admin/save-profile" method="post">
-        <div>
-            <label for="name">Profile data:</label>
-        </div>
-        <div>
-            <label for="name">First Name:</label>
-            <input type="text" id="first-name" name="frist_name" value="{{ firstName }}" />
-        </div>
-
-        <div>
-            <label for="name">Last Name:</label>
-            <input type="text" id="last-name" name="last_name" value="{{ lastName }}" />
-        </div>
-
-        <div>
-            <label for="mail">E-mail:</label>
-            <input type="email" id="mail" name="email" value="{{ email }}"/>
-        </div>
-
-        <div>
-            <input type="radio" name="gender" value="MALE" {{ (gender == 'MALE') ? 'checked' : '' }}> Male<br>
-            <input type="radio" name="gender" value="FEMALE" {{ (gender == 'FEMALE') ? 'checked' : '' }}> Female<br>
-        </div>
-
-        <div>
-            <label for="programming-languages">Known programming languages:</label><br />
-
-            <input type="checkbox" name="programming_languages[]" value="PHP"
-                    {{ ('PHP' in programmingLanguages) ? 'checked' : '' }}
-            > PHP<br>
-
-            <input type="checkbox" name="programming_languages[]" value="JAVA"
-                    {{ ('JAVA' in programmingLanguages) ? 'checked' : '' }}
-            > JAVA<br>
-
-            <input type="checkbox" name="programming_languages[]" value="C++"
-                    {{ ('C++' in programmingLanguages) ? 'checked' : '' }}
-            > C++<br>
-
-            <input type="checkbox" name="programming_languages[]" value="PYTHON"
-                    {{ ('PYTHON' in programmingLanguages) ? 'checked' : '' }}
-            > PYTHON<br>
-
-            <input type="checkbox" name="programming_languages[]" value="RUBY"
-                    {{ ('RUBY' in programmingLanguages) ? 'checked' : '' }}
-            > RUBY<br>
-
-            <input type="checkbox" name="programming_languages[]" value="JAVASCRIPT"
-                    {{ ('JAVASCRIPT' in programmingLanguages) ? 'checked' : '' }}
-            > JAVASCRIPT<br>
-
-            <input type="checkbox" name="programming_languages[]" value="C#"
-                    {{ ('C#' in programmingLanguages) ? 'checked' : '' }}
-            > C#<br>
-
-        </div>
-
-        <div>
-            <label for="msg">Short description:</label>
-            <textarea id="msg" name="user_description">{{ description }}</textarea>
-        </div>
-
-        <input type="submit" name="submit" value="Update profile data"/>
-    </form>
-
-    <form id="upload-images"  action="/admin/save-image" method="post" enctype="multipart/form-data">
-        <label for="name">Upload images:</label><br />
-        <input type="file" name="file"><br />
-        <input type="submit" name="submit" value="Submit Image"/>
-    </form>
-
-    <div id="images-listing">
-        <label for="name">{{ firstName }}'s images:</label><br />
-
-        <ul>
-            {% for image in images %}
-                <li>
-                    <img src="/images/{{ image.FileName }}" data-images-emotions="{{ image.ProcessingResult }}" />
-                    <a href="/admin/delete-image/{{ image.IdImage }}" >Delete</a>
-                </li>
-            {% endfor %}
-        </ul>
+    <div class="view-profile container">
+        <a class="login-link" href="/profile/{{ username }}">View Profile</a>
     </div>
+
+    <div class="container">
+        <div class="row">
+
+            {% if message is not empty %}
+                <div class="col-md-12">
+                    <div class="messages">
+                        {{ message }}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="col-md-12">
+                <form id="user-details" class="form-style-1 section" action="/admin/save-profile" method="post">
+                    <div>
+                        <h2 for="name">Profile data:</h2>
+                    </div>
+                    <div class="form-item">
+                        <label for="name">First Name:</label>
+                        <input type="text" id="first-name" name="frist_name" value="{{ firstName }}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="name">Last Name:</label>
+                        <input type="text" id="last-name" name="last_name" value="{{ lastName }}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="mail">E-mail:</label>
+                        <input type="email" id="mail" name="email" value="{{ email }}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="mail">Gender:</label></br>
+                        <input type="radio" name="gender" value="MALE" {{ (gender == 'MALE') ? 'checked' : '' }}>
+                        Male<br>
+                        <input type="radio" name="gender" value="FEMALE" {{ (gender == 'FEMALE') ? 'checked' : '' }}>
+                        Female<br>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="programming-languages">Known programming languages:</label><br/>
+
+                        <input type="checkbox" name="programming_languages[]" value="PHP"
+                                {{ ('PHP' in programmingLanguages) ? 'checked' : '' }}
+                        > PHP<br>
+
+                        <input type="checkbox" name="programming_languages[]" value="JAVA"
+                                {{ ('JAVA' in programmingLanguages) ? 'checked' : '' }}
+                        > JAVA<br>
+
+                        <input type="checkbox" name="programming_languages[]" value="C++"
+                                {{ ('C++' in programmingLanguages) ? 'checked' : '' }}
+                        > C++<br>
+
+                        <input type="checkbox" name="programming_languages[]" value="PYTHON"
+                                {{ ('PYTHON' in programmingLanguages) ? 'checked' : '' }}
+                        > PYTHON<br>
+
+                        <input type="checkbox" name="programming_languages[]" value="RUBY"
+                                {{ ('RUBY' in programmingLanguages) ? 'checked' : '' }}
+                        > RUBY<br>
+
+                        <input type="checkbox" name="programming_languages[]" value="JAVASCRIPT"
+                                {{ ('JAVASCRIPT' in programmingLanguages) ? 'checked' : '' }}
+                        > JAVASCRIPT<br>
+
+                        <input type="checkbox" name="programming_languages[]" value="C#"
+                                {{ ('C#' in programmingLanguages) ? 'checked' : '' }}
+                        > C#<br>
+
+                    </div>
+
+                    <div class="form-item">
+                        <label for="msg">Short description:</label>
+                        <textarea id="msg" name="user_description">{{ description }}</textarea>
+                    </div>
+
+                    <input type="submit" name="submit" value="Update profile data"/>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form id="upload-images" class="form-style-1 section" action="/admin/save-image" method="post"
+                      enctype="multipart/form-data">
+                    <h2 for="name">Upload images:</h2><br/>
+                    <input type="file" name="file"><br/>
+                    <input type="submit" name="submit" value="Submit Image"/>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div id="images-listing" class="section">
+                    <h2 for="name">{{ firstName }}'s images:</h2><br/>
+
+                    <ul>
+                        {% for image in images %}
+                            <li>
+                                <img src="/images/{{ image.FileName }}"
+                                     data-images-emotions="{{ image.ProcessingResult }}"/>
+                                <a href="/admin/delete-image/{{ image.IdImage }}">Delete</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 {% endblock %}

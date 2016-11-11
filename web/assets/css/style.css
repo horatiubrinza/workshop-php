@@ -1,44 +1,12 @@
-a{
-    text-decoration: none;
+body {
+
 }
 
-.header,
-.footer{
-    display: block;
-    width: 30%;
-    height: 100px;
-    border: 1px solid #000000;
-    text-align: left;
-    margin: 0 auto ;
-    padding: 5px;
-}
-
-#user-details,
-#upload-images,
-#images-listing,
-.messages,
-#user-data,
-#gallery,
-#login-form,
-.view-profile,
-#photo-emotions{
-    display: block;
-    width: 30%;
-    border: 1px solid #000000;
-    text-align: left;
-    margin: 10px auto;
-    padding: 5px;
-}
-
-.view-profile{
+.view-profile {
     text-align: right;
 }
 
-.login-link{
-    float: right;
-}
-
-#images-listing img{
+#images-listing img {
     max-height: 100px;
 }
 
@@ -50,4 +18,131 @@ a{
 
 .slick-prev:before, .slick-next:before {
     color: #ffd121 !important;
+}
+
+.footer{
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.footer a{
+  color: #ffffff;;
+}
+
+/*CR*/
+*:focus {
+    outline: none;
+}
+
+body {
+    font-family: "Roboto";
+    font-size: 16px;
+    line-height: 26px;
+    background-color: #243447;
+}
+
+a,
+a:hover {
+    text-decoration: none;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+    font-family: "Roboto Slab";
+}
+
+h2 {
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 25px;
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 25px;
+    margin-top: 0;
+    background-color: #6ae9d2;
+    padding: 20px;
+    margin-top: -25px;
+    margin-left: -25px;
+    margin-right: -25px;
+}
+
+.label {
+    display: block;
+    font-size: 16px;
+    font-weight: 100;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    border: 1px solid #c3bdbd;;
+    padding: 5px;
+    width: 100%;
+    max-width: 350px;
+    display: block;
+}
+
+.button,
+button,
+input[type="submit"] {
+    background-color: #ffbf24;
+    color: #000;
+    padding: 12px 25px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    font-family: "Roboto Slab";
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
+}
+
+.button:hover,
+button:hover,
+input[type="submit"]:hover {
+    background-color: #045295;
+    color: #fff;
+}
+
+.form-item {
+    margin-bottom: 25px;
+}
+
+.section {
+    background-color: #fff;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.messages {
+    background-color: #ffbf24;
+    padding: 12px 20px;
+    margin-bottom: 25px;
+}
+
+#images-listing ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#images-listing ul li {
+    display: inline-block;
+    vertical-align: top;
+    width: 33.33%;
+    margin-left: -1px;
+    margin-right: -1px;
 }
