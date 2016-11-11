@@ -5,6 +5,7 @@ namespace ZWorkshop;
 use IPC\Silex\Provider\PDOServiceProvider;
 use Rpodwika\Silex\YamlConfigServiceProvider;
 use Silex\Application;
+use Silex\Provider\RoutingServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TwigServiceProvider;
@@ -55,6 +56,9 @@ class Bootstrap
                 return new PasswordEncoderService();
             },
         ]);
+
+        //register routing service provider; here we can find url_generator service
+        $app->register(new RoutingServiceProvider());
 
         //set app debug mode
         $app['debug'] = $app['config']['debug'];

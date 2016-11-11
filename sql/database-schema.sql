@@ -22,8 +22,8 @@ AUTO_INCREMENT=0;
 CREATE TABLE IF NOT EXISTS `images` (
 	`IdImage` INT(11) NOT NULL AUTO_INCREMENT,
 	`IdUser` INT(11) NOT NULL,
-	`FileName` VARCHAR(500) NOT NULL DEFAULT '',
-	`ProcessingResut` TEXT NULL,
+	`FileName` VARCHAR(50) NOT NULL DEFAULT '',
+	`ProcessingResult` TEXT NULL,
 	PRIMARY KEY (`IdImage`)
 )
 COLLATE='utf8_general_ci'
