@@ -13,7 +13,7 @@ use ZWorkshop\Services\EmotionAPI;
 class AdminController
 {
 
-    const IMAGE_UPLOAD_DIR = __DIR__ . '/../../upload/';
+    const IMAGE_UPLOAD_DIR = __DIR__ . '/../../web/images/';
 
     /**
      * Index action
