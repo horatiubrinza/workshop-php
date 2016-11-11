@@ -17,7 +17,7 @@ class FrontController
      */
     public function index(Application $app)
     {
-        return $app->redirect('profile');
+        return $app->redirect('/login');
     }
 
     /**
