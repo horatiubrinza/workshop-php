@@ -12,16 +12,7 @@ use ZWorkshop\Services\EmotionAPI;
 
 class AdminController
 {
-    public static $IMAGE_UPLOAD_DIR = '';
-
-    /**
-     * AdminController constructor.
-     */
-    public function __construct()
-    {
-        self::$IMAGE_UPLOAD_DIR = __DIR__ . "/../../web/images/";
-    }
-
+    const IMAGE_UPLOAD_DIR =  __DIR__ . "/../../web/images/";
 
     /**
      * Index action
@@ -133,9 +124,9 @@ class AdminController
             $filename = uniqid('', true) . '.' . $file->getClientOriginalExtension();
 
             try {
-                $file->move(self::$IMAGE_UPLOAD_DIR, $filename);
+                $file->move(self::IMAGE_UPLOAD_DIR, $filename);
 
-                $imageUrl = self::$IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR  . $filename;
+                $imageUrl = self::IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR  . $filename;
 
                 $emotionApi = new EmotionAPI();
                 $emotions = json_encode($emotionApi->analyze($imageUrl));
@@ -172,15 +163,13 @@ class AdminController
         $imageModel = new ImageModel($dbConnection);
         $image = $imageModel->get($imageId);
 
-        $filePath = self::$IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR . $image['FileName'];
+        $filePath = self::IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR . $image['FileName'];
         unlink($filePath);
 
         $message = 'Successfully deleted image!';
         if (!$imageModel->delete($imageId)) {
             $message = 'An error occurred, the image was not deleted.';
         }
-
-        //TODO: delete image file
 
         // redirect with a message
         $redirectUrl = '/admin?message=' . $message;
