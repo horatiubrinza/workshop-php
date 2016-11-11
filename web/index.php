@@ -51,17 +51,4 @@ $app->post('/admin/save-image', 'ZWorkshop\\Controllers\\AdminController::saveIm
  */
 $app->get('/admin/delete-image/{imageId}', 'ZWorkshop\\Controllers\\AdminController::deleteImage');
 
-/**
- * Test emotion api route
- */
-$app->get('/test-emotion-api', function (Request $request) {
-
-    $emotionApi = new EmotionAPI();
-    $imageUrl = 'D:\programs\wamp64\www\workshop-php-a-zitec\upload\demo-emotions.jpg';
-
-    $emotions = $emotionApi->analyze($imageUrl);
-    dump($emotions);
-    return '';
-});
-
 $app->run();

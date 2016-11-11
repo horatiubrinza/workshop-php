@@ -12,8 +12,7 @@ use ZWorkshop\Services\EmotionService;
 
 class AdminController
 {
-
-    const IMAGE_UPLOAD_DIR = __DIR__ . '/../../web/images/';
+    const IMAGE_UPLOAD_DIR =  __DIR__ . "/../../web/images/";
 
     /**
      * Index action
@@ -111,7 +110,7 @@ class AdminController
     {
         $dbConnection = $app['pdo.connection'];
 
-        $username = $app['security.token_storage']->getToken()->getUser();
+        $username = $app['security.token_storage']->getToken()->getUser()->getUsername();
         $profileModel = new ProfileModel($dbConnection);
         $profile = $profileModel->get($username);
 
@@ -133,11 +132,9 @@ class AdminController
                 $emotions = json_encode($emotionApi->analyze($imageUrl));
 
                 $imageModel = new ImageModel($dbConnection);
-                if ($imageModel->save($profile['IdUser'], $filename, $emotions)) {
-                    $message = 'File was successfully uploaded!';
-                } else {
-                    $message = 'File uploaded, but record not saved in database!';
-                }
+                $imageModel->save($profile['IdUser'], $filename, $emotions);
+
+                $message = 'File was successfully uploaded!';
             } catch (FileException $e) {
                 $message = 'File uploaded, but could not be moved!';
             }
@@ -173,8 +170,6 @@ class AdminController
         if (!$imageModel->delete($imageId)) {
             $message = 'An error occurred, the image was not deleted.';
         }
-
-        //TODO: delete image file
 
         // redirect with a message
         $redirectUrl = '/admin?message=' . $message;

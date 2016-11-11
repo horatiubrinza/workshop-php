@@ -1,7 +1,7 @@
 pdo.options:
   dsn: mysql:host=localhost;dbname=php_workshop;charset=UTF8
-  username:
-  password:
+  username: root
+  password: root
   options:
   attributes:
 
