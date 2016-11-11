@@ -2,37 +2,47 @@
 
 {% block title %}{{ title }}{% endblock %}
 
-{% block stylesheet %}
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css" media="screen"/>
-    <link rel="stylesheet" type="text/css" href="/assets/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/slick/slick-theme.css"/>
-{% endblock %}
-
 {% block body %}
 
-    <div id="user-data">
-        <span>{{ firstName }} {{ lastName }}</span>
-        <span>({{ username }})</span>
-        <span class="login-link">
-            {% if is_granted('ROLE_USER') %}
-                <a href="/admin/logout">Logout</a>
-            {% else %}
-                <a href="/login">Login</a>
-            {% endif %}
-        </span>
-    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="user-data" class="section">
+                    <h2>
+                        <span>{{ firstName }} {{ lastName }}</span>
+                        <span>({{ username }})</span>
+                    </h2>
 
-    <div id="gallery">
-        {% for image in images %}
-            <div>
-                <img src="/images/{{ image.FileName }}" data-images-emotions="{{ image.ProcessingResult }}"/>
+                    <span class="login-link">
+                        {% if is_granted('ROLE_USER') %}
+                            <a class="button" href="/admin/logout">Logout</a>
+                        {% else %}
+                           <a class="button" href="/login">Login</a>
+                        {% endif %}
+                    </span>
+                </div>
             </div>
-        {% endfor %}
-    </div>
-    <div id="photo-emotions">
 
-    </div>
+            <div class="col-md-12">
+                <div id="gallery" class="section">
+                    {% for image in images %}
+                        <div>
+                            <img src="/images/{{ image.FileName }}"
+                                 data-images-emotions="{{ image.ProcessingResult }}"/>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
 
+            <div class="col-md-12">
+                <div class="emotions-wrapper section">
+                    <h2>Results</h2>
+                    <div id="photo-emotions">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 

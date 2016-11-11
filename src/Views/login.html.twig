@@ -5,17 +5,37 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="login-form" class="section">
+                    <h2>Login</h2>
+                    <form action="{{ path('admin_login_check') }}" method="post">
 
-    <div id="login-form">
+                        {% if error is not empty %}
+                            <div class="col-md-12">
+                                <div class="messages">
+                                    {{ error }}
+                                </div>
+                            </div>
+                        {% endif %}
 
-        <form action="{{ path('admin_login_check') }}" method="post">
-            {{ error }}
-            <input type="text" name="_username" value="{{ last_username }}" />
-            <input type="password" name="_password" value="" />
-            <input type="submit" />
-        </form>
+                        <div class="form-item">
+                            <label for="name">Username:</label>
+                            <input type="text" name="_username" value="{{ last_username }}" />
+                        </div>
 
+                        <div class="form-item">
+                            <label for="name">Password:</label>
+                            <input type="password" name="_password" value="" />
+                        </div>
+
+                        <input type="submit" value="Login" />
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>
-
 {% endblock %}
 
