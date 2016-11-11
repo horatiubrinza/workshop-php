@@ -50,8 +50,9 @@ class EmotionAPI
             $data = file_get_contents($image);
         }
 
-
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         $response = curl_exec($ch);
 

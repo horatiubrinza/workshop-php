@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use ZWorkshop\Models\ImageModel;
 use ZWorkshop\Models\ProfileModel;
+use ZWorkshop\Services\EmotionAPI;
 
 class AdminController
 {
@@ -126,11 +127,13 @@ class AdminController
             try {
                 $file->move(self::IMAGE_UPLOAD_DIR, $filename);
 
-                /**
-                 * TODO: call api and process the image
-                 */
+                $imageUrl = self::IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR  . $filename;
+
+                $emotionApi = new EmotionAPI();
+                $emotions = json_encode($emotionApi->analyze($imageUrl));
+
                 $imageModel = new ImageModel($dbConnection);
-                $imageModel->save($profile['IdUser'], $filename, 'test json');
+                $imageModel->save($profile['IdUser'], $filename, $emotions);
 
                 $message = 'File was successfully uploaded!';
             } catch (FileException $e) {
