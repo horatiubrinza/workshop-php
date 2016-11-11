@@ -13,7 +13,16 @@ use ZWorkshop\Services\EmotionAPI;
 class AdminController
 {
 
-    const IMAGE_UPLOAD_DIR = __DIR__ . '/../../upload/';
+    public static $IMAGE_UPLOAD_DIR = '';
+
+    /**
+     * AdminController constructor.
+     */
+    public function __construct()
+    {
+        self::$IMAGE_UPLOAD_DIR = __DIR__ . "/../../upload/";
+    }
+
 
     /**
      * Index action
@@ -125,9 +134,9 @@ class AdminController
             $filename = uniqid('', true) . '.' . $file->getClientOriginalExtension();
 
             try {
-                $file->move(self::IMAGE_UPLOAD_DIR, $filename);
+                $file->move(self::$IMAGE_UPLOAD_DIR, $filename);
 
-                $imageUrl = self::IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR  . $filename;
+                $imageUrl = self::$IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR  . $filename;
 
                 $emotionApi = new EmotionAPI();
                 $emotions = json_encode($emotionApi->analyze($imageUrl));
@@ -164,7 +173,7 @@ class AdminController
         $imageModel = new ImageModel($dbConnection);
         $image = $imageModel->get($imageId);
 
-        $filePath = self::IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR . $image['FileName'];
+        $filePath = self::$IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR . $image['FileName'];
         unlink($filePath);
 
         $message = 'Successfully deleted image!';
