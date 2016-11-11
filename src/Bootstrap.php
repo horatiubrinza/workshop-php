@@ -10,7 +10,7 @@ use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 
-use ZWorkshop\Services\PasswordEncoderService;
+use ZWorkshop\Services\Sha1PasswordEncoder;
 use ZWorkshop\Services\UserProvider;
 
 class Bootstrap
@@ -53,7 +53,7 @@ class Bootstrap
                 ]
             ],
             'security.default_encoder' => function () {
-                return new PasswordEncoderService();
+                return new Sha1PasswordEncoder();
             },
         ]);
 

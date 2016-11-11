@@ -5,7 +5,7 @@ namespace ZWorkshop\Services;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 
-class PasswordEncoderService implements PasswordEncoderInterface
+class Sha1PasswordEncoder implements PasswordEncoderInterface
 {
 
     /**
