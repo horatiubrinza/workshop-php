@@ -18,7 +18,7 @@ a{
 #images-listing,
 .messages,
 #user-data,
-#gallery-listing,
+#gallery,
 #login-form,
 .view-profile{
     display: block;
@@ -39,4 +39,14 @@ a{
 
 #images-listing img{
     max-height: 100px;
+}
+
+#gallery img {
+    max-height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slick-prev:before, .slick-next:before {
+    color: #ffd121 !important;
 }
