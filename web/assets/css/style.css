@@ -20,7 +20,8 @@ a{
 #user-data,
 #gallery,
 #login-form,
-.view-profile{
+.view-profile,
+#photo-emotions{
     display: block;
     width: 30%;
     border: 1px solid #000000;
