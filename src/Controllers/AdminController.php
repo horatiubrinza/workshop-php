@@ -164,7 +164,9 @@ class AdminController
         $image = $imageModel->get($imageId);
 
         $filePath = self::IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR . $image['FileName'];
-        unlink($filePath);
+        if (is_file($filePath)) {
+            unlink($filePath);
+        }
 
         $message = 'Successfully deleted image!';
         if (!$imageModel->delete($imageId)) {
