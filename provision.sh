@@ -18,6 +18,7 @@ main() {
 	mysql_go
 	php_go
 	autoremove_go
+	application_go
 }
 
 repositories_go() {
@@ -137,6 +138,14 @@ mysql_go() {
 
 	service mysql restart
 	update-rc.d apache2 enable
+}
+
+application_go() {
+    cd /vagrant
+    composer install
+    cp config/settings-dist.yml config/settings.yml
+    git fetch
+    git checkout e1
 }
 
 main
