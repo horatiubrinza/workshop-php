@@ -1,0 +1,40 @@
+---
+- name: Install with additional packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ _athena_packages }}"
+
+- name: Ensure ssh folder exists
+  file:
+    path: ~/.ssh
+    state: directory
+    mode: 0700
+
+- name: Copy private ssh key
+  copy:
+    src: /vagrant/{{ athena_ssh_key }}
+    dest: ~/.ssh/id_rsa
+    mode: 0600
+
+- name: Clone repository
+  git:
+    repo: git@github.com:alexandrubau/athena.git
+    dest: "{{ _athena_path }}"
+    version: master
+    accept_hostkey: true
+    ssh_opts: "-o StrictHostKeyChecking=no"
+
+- name: Scanning for roles
+  find:
+    paths: "{{ _athena_path }}/provision/roles"
+    file_type: directory
+  register: _athena_roles
+
+- name: Create roles symlink
+  file:
+    src: "{{ item.path }}"
+    dest: /etc/ansible/roles/{{ item.path | basename }}
+    state: link
+    force: yes
+  with_items: "{{ _athena_roles.files }}"

@@ -1,0 +1,4 @@
+---
+_athena_packages:
+    - git
+_athena_path: /opt/athena

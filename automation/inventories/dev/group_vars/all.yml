@@ -1,0 +1,26 @@
+---
+apache_configs:
+  fqdn: /vagrant/templates/fqdn.conf.j2
+apache_mods:
+  - rewrite
+  - headers
+apache_sites:
+  athena: /vagrant/templates/workshop.conf.j2
+
+mysql_databases:
+  - dev
+mysql_users:
+  - username: 'vagrant'
+    password: 'vagrant'
+    privs:
+      - '*.*:ALL,GRANT'
+    hosts:
+      - '%'
+      - 'localhost'
+
+samba_shares:
+  - name: www
+    path: /var/www
+samba_users:
+  - username: vagrant
+    password: vagrant
