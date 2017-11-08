@@ -3,15 +3,14 @@ apache_configs:
   fqdn: /vagrant/templates/fqdn.conf.j2
 apache_mods:
   - rewrite
-  - headers
 apache_sites:
-  athena: /vagrant/templates/workshop.conf.j2
+  workshop: /vagrant/templates/workshop.conf.j2
 
 mysql_databases:
-  - dev
+  - php_workshop
 mysql_users:
-  - username: 'vagrant'
-    password: 'vagrant'
+  - username: 'workshop'
+    password: 'workshop'
     privs:
       - '*.*:ALL,GRANT'
     hosts:

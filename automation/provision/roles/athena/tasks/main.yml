@@ -1,5 +1,5 @@
 ---
-- name: Install with additional packages
+- name: Install packages
   apt:
     name: "{{ item }}"
     state: latest

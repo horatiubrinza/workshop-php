@@ -1,9 +1,9 @@
 ---
-- name: Install with additional packages
+- name: Install packages
   apt:
     name: "{{ item }}"
     state: latest
-  with_items: "{{ _athena_packages }}"
+  with_items: "{{ _deploy_packages }}"
 
 - name: Ensure ssh folder exists
   file:
@@ -13,28 +13,43 @@
 
 - name: Copy private ssh key
   copy:
-    src: /vagrant/{{ athena_ssh_key }}
+    src: /vagrant/{{ deploy_ssh_key }}
     dest: ~/.ssh/id_rsa
     mode: 0600
 
+- name: Ensure deploy folder exists
+  file:
+    path: "{{ deploy_path }}"
+    state: directory
+  notify: permissions-apache
+
 - name: Clone repository
   git:
-    repo: git@github.com:alexandrubau/athena.git
-    dest: "{{ _athena_path }}"
+    repo: git@github.com:alexandrubau/workshop-php.git
+    dest: "{{ deploy_path }}"
     version: master
+    force: yes
     accept_hostkey: true
     ssh_opts: "-o StrictHostKeyChecking=no"
 
-- name: Scanning for roles
-  find:
-    paths: "{{ _athena_path }}/provision/roles"
-    file_type: directory
-  register: _athena_roles
+- name: Install composer packages
+  composer:
+    command: install
+    working_dir: "{{ deploy_path }}"
 
-- name: Create roles symlink
-  file:
-    src: "{{ item.path }}"
-    dest: /etc/ansible/roles/{{ item.path | basename }}
-    state: link
-    force: yes
-  with_items: "{{ _athena_roles.files }}"
+- name: Copy app config
+  copy:
+    src: "{{ deploy_path }}/config/settings-dist.yml"
+    dest: "{{ deploy_path }}/config/settings.yml"
+  notify: permissions-apache
+
+- name: Scanning for sql files
+  find:
+    paths: "{{ deploy_path }}/sql"
+    patterns: '*.sql'
+    recurse: yes
+  register: _deploy_sql_scripts
+
+- name: Run sql scripts
+  shell: mysql < {{ item.path }}
+  with_items: "{{ _deploy_sql_scripts.files }}"
