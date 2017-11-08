@@ -23,3 +23,6 @@ samba_shares:
 samba_users:
   - username: vagrant
     password: vagrant
+
+athena_ssh_key: provision/private/id_rsa_demo
+deploy_ssh_key: provision/private/id_rsa_demo
