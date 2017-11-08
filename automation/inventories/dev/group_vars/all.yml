@@ -26,3 +26,4 @@ samba_users:
 
 athena_ssh_key: provision/private/id_rsa_demo
 deploy_ssh_key: provision/private/id_rsa_demo
+deploy_path: /var/www/workshop
