@@ -1,5 +1,8 @@
-# put insert,update queries here
 USE `php_workshop`;
+
+############################################
+# Put insert,update queries here           #
+############################################
 
 # use http://www.sha1-online.com/ for password hashing
 # password = test123#
@@ -10,3 +13,4 @@ USE `php_workshop`;
 
 # password = test123#
 INSERT INTO `users` (`FirstName`, `LastName`, `Email`, `Gender`, `ProgramingLanguages`, `Description`, `Username`, `Password`) VALUES ('Test', 'McDev', 'test@test.com', 'MALE', '', '', 'devuser', 'test123#');
+

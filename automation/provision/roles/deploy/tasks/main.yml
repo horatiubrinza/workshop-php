@@ -32,6 +32,13 @@
     accept_hostkey: true
     ssh_opts: "-o StrictHostKeyChecking=no"
 
+- name: Copy app config
+  copy:
+    src: "{{ deploy_path }}/config/settings-dist.yml"
+    dest: "{{ deploy_path }}/config/settings.yml"
+    remote_src: yes
+  notify: permissions-apache
+
 - name: Install composer packages
   composer:
     command: install
@@ -47,9 +54,3 @@
 - name: Run sql scripts
   shell: mysql < {{ item.path }}
   with_items: "{{ _deploy_sql_scripts.files }}"
-
-- name: Copy app config
-  copy:
-    src: "{{ deploy_path }}/config/settings-dist.yml"
-    dest: "{{ deploy_path }}/config/settings.yml"
-  notify: permissions-apache
