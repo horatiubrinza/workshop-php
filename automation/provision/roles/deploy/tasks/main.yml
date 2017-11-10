@@ -25,7 +25,7 @@
 
 - name: Clone repository
   git:
-    repo: git@github.com:alexandrubau/workshop-php.git
+    repo: git@github.com:horatiubrinza/workshop-php.git
     dest: "{{ deploy_path }}"
     version: master
     force: yes
