@@ -1,7 +1,8 @@
-# put sql table schema queries here
-CREATE DATABASE IF NOT EXISTS `php_workshop`;
-
 USE `php_workshop`;
+
+############################################
+# Put sql table schema queries here        #
+############################################
 
 CREATE TABLE IF NOT EXISTS `users` (
 	`IdUser` INT(11) NOT NULL AUTO_INCREMENT,
@@ -29,4 +30,3 @@ CREATE TABLE IF NOT EXISTS `images` (
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 AUTO_INCREMENT=0;
-
