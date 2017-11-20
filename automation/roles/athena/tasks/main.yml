@@ -13,7 +13,7 @@
 
 - name: Copy private ssh key
   copy:
-    src: /vagrant/{{ athena_ssh_key }}
+    src: "{{ athena_ssh_key }}"
     dest: ~/.ssh/id_rsa
     mode: 0600
 
@@ -24,10 +24,11 @@
     version: master
     accept_hostkey: true
     ssh_opts: "-o StrictHostKeyChecking=no"
+    force: yes
 
 - name: Scanning for roles
   find:
-    paths: "{{ _athena_path }}/provision/roles"
+    paths: "{{ _athena_path }}/roles"
     file_type: directory
   register: _athena_roles
 

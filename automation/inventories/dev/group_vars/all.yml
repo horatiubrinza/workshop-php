@@ -1,10 +1,10 @@
 ---
 apache_configs:
-  fqdn: /vagrant/templates/fqdn.conf.j2
+  fqdn: /vagrant/automation/templates/fqdn.conf.j2
 apache_mods:
   - rewrite
 apache_sites:
-  workshop: /vagrant/templates/workshop.conf.j2
+  workshop: /vagrant/automation/templates/workshop.conf.j2
 
 mysql_databases:
   - php_workshop
@@ -24,6 +24,9 @@ samba_users:
   - username: vagrant
     password: vagrant
 
-athena_ssh_key: provision/private/id_rsa_demo
-deploy_ssh_key: provision/private/id_rsa_demo
-deploy_path: /var/www/workshop
+athena_ssh_key: /vagrant/automation/files/private/id_rsa_demo
+
+deploy_ssh_key: /vagrant/automation/files/private/id_rsa_demo
+deploy_git_ssh: git@github.com:alexandrubau/workshop-php.git
+deploy_dest: /var/www/workshop
+deploy_hook: /vagrant/automation/hooks/deploy.yml
