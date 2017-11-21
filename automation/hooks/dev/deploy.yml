@@ -1,0 +1,10 @@
+---
+- name: Copy app config
+  copy:
+    src: "{{ deploy_dest }}/config/settings-dist.yml"
+    dest: "{{ deploy_dest }}/config/settings.yml"
+    remote_src: yes
+  notify: permissions-apache
+
+- name: Run sql scripts
+  shell: mysql < /vagrant/sql/install.sql

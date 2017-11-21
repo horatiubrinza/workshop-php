@@ -27,6 +27,6 @@ samba_users:
 athena_ssh_key: /vagrant/automation/files/private/id_rsa_demo
 
 deploy_ssh_key: /vagrant/automation/files/private/id_rsa_demo
-deploy_git_ssh: git@github.com:alexandrubau/workshop-php.git
+deploy_git_ssh: git@github.com:horatiubrinza/workshop-php.git
 deploy_dest: /var/www/workshop
-deploy_hook: /vagrant/automation/hooks/deploy.yml
+deploy_hook: /vagrant/automation/hooks/dev/deploy.yml
