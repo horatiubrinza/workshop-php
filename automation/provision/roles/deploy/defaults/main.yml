@@ -1,3 +1,0 @@
----
-deploy_ssh_key: provision/private/id_rsa
-deploy_path: /var/www
