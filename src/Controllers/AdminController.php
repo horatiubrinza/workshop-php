@@ -15,7 +15,7 @@ use ZWorkshop\Services\EmotionService;
 /**
  * The admin controller.
  */
-class AdminController
+class AdminController extends BaseController
 {
     private const IMAGE_UPLOAD_DIR =  __DIR__.'/../../web/images/';
 
@@ -39,7 +39,7 @@ class AdminController
         $imageModel = new ImageModel($app['pdo.connection']);
         $userImages = $imageModel->getUserCollection($username);
 
-        return $app['twig']->render('admin.html.twig', [
+        return $this->render($app, 'admin.html.twig', [
             'title' => 'Admin Panel',
             'username' => $username,
             'firstName' => $userDetails['FirstName'],

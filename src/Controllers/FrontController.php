@@ -12,7 +12,7 @@ use ZWorkshop\Models\ProfileModel;
 /**
  * The front controller.
  */
-class FrontController
+class FrontController extends BaseController
 {
     /**
      * The index action.
@@ -50,7 +50,7 @@ class FrontController
         $imageModel = new ImageModel($dbConnection);
         $userImages = $imageModel->getUserCollection($username);
 
-        return $app['twig']->render('profile.html.twig', [
+        return $this->render($app, 'profile.html.twig', [
             'title' => 'Profile Page',
             'username' => $userData['Username'],
             'firstName' => $userData['FirstName'],
@@ -74,7 +74,7 @@ class FrontController
             return $app->redirect('/admin');
         }
 
-        return $app['twig']->render('login.html.twig', [
+        return $this->render($app, 'login.html.twig', [
             'title' => 'Login',
             'error' => $app['security.last_error']($request),
             'last_username' => $app['session']->get('_security.last_username'),
