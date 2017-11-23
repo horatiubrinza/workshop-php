@@ -30,7 +30,6 @@ class AdminController
     public function index(Application $app, Request $request): Response
     {
         $username = $app['security.token_storage']->getToken()->getUser();
-        $message = $request->get('message');
 
         // Get user details.
         $profileModel = new ProfileModel($app['pdo.connection']);
@@ -50,7 +49,7 @@ class AdminController
             'programmingLanguages' => explode('|', $userDetails['ProgramingLanguages']),
             'description' => $userDetails['Description'],
             'images' => $userImages,
-            'message' => $message,
+            'message' => $request->getSession()->get('message'),
         ]);
     }
 
@@ -96,7 +95,7 @@ class AdminController
         // Redirect with a message.
         $redirectUrl = '/admin';
         if (!empty($message)) {
-            $redirectUrl .= '?'.http_build_query(['message' => $message]);
+            $request->getSession()->set('message', $message);
         }
 
         return $app->redirect($redirectUrl);
@@ -141,7 +140,8 @@ class AdminController
         }
 
         // Redirect with a message.
-        $redirectUrl = '/admin?'.http_build_query(['message' => $message]);
+        $redirectUrl = '/admin';
+        $request->getSession()->set('message', $message);
 
         return $app->redirect($redirectUrl);
     }
@@ -150,11 +150,12 @@ class AdminController
      * The delete image action.
      *
      * @param Application $app
+     * @param Request     $request
      * @param int         $imageId
      *
      * @return RedirectResponse
      */
-    public function deleteImage(Application $app, int $imageId): RedirectResponse
+    public function deleteImage(Application $app, Request $request, int $imageId): RedirectResponse
     {
         $imageModel = new ImageModel($app['pdo.connection']);
         $image = $imageModel->get($imageId);
@@ -170,7 +171,8 @@ class AdminController
         }
 
         // Redirect with a message.
-        $redirectUrl = '/admin?'.http_build_query(['message' => $message]);
+        $redirectUrl = '/admin';
+        $request->getSession()->set('message', $message);
 
         return $app->redirect($redirectUrl);
     }
