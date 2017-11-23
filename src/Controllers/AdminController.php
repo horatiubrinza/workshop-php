@@ -39,6 +39,11 @@ class AdminController extends BaseController
         $imageModel = new ImageModel($app['pdo.connection']);
         $userImages = $imageModel->getUserCollection($username);
 
+        // Get message from session and delete it afterwards.
+        $session = $request->getSession();
+        $message = $session->get('message');
+        $session->remove('message');
+
         return $this->render($app, 'admin.html.twig', [
             'title' => 'Admin Panel',
             'username' => $username,
@@ -49,7 +54,7 @@ class AdminController extends BaseController
             'programmingLanguages' => explode('|', $userDetails['ProgramingLanguages']),
             'description' => $userDetails['Description'],
             'images' => $userImages,
-            'message' => $request->getSession()->get('message'),
+            'message' => $message,
         ]);
     }
 
