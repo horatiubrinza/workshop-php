@@ -2,13 +2,20 @@
 
 namespace ZWorkshop\Models;
 
+/**
+ * The profile model.
+ */
 class ProfileModel
 {
-    /** @var \PDO */
+    /**
+     * The DB connection.
+     *
+     * @var \PDO
+     */
     private $dbConnection;
 
     /**
-     * ProfileModel constructor.
+     * The profile model constructor.
      *
      * @param \PDO $dbConnection
      */
@@ -18,16 +25,16 @@ class ProfileModel
     }
 
     /**
-     * @param $username
-     * @return mixed
+     * Gets the user with the given username.
+     *
+     * @param string $username
+     *
+     * @return array|null
      */
-    public function get($username)
+    public function get(string $username): ?array
     {
-        // get user details
-        $sql = "SELECT * FROM `users` WHERE `username` = :username;";
-        $params = [
-            ':username' => $username,
-        ];
+        $sql = 'SELECT * FROM `users` WHERE `username` = :username;';
+        $params = [':username' => $username];
 
         $query = $this->dbConnection->prepare($sql);
         $query->execute($params);
@@ -36,35 +43,35 @@ class ProfileModel
     }
 
     /**
-     * @param $username
-     * @param $firstName
-     * @param $lastName
-     * @param $email
-     * @param $gender
-     * @param $programmingLanguages
-     * @param $userDescription
-     * @return int
+     * Updates the user with the given username.
+     *
+     * @param string $username
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $email
+     * @param string $gender
+     * @param string $programmingLanguages
+     * @param string $userDescription
+     *
+     * @return bool True if the update was successful.
      */
     public function save(
-        $username,
-        $firstName,
-        $lastName,
-        $email,
-        $gender,
-        $programmingLanguages,
-        $userDescription
-    ) {
-        // define query
-        $sql = "UPDATE `users`
-                SET `FirstName`= :firstName,
-                      `LastName` = :lastName,
-                      `Email` = :email,
-                      `Gender` = :gender,
-                      `ProgramingLanguages` = :programmingLanguages,
-                      `Description` =  :userDescription
-                WHERE `username` = :username;";
-
-        // define query params
+        string $username,
+        string $firstName,
+        string $lastName,
+        string $email,
+        string $gender,
+        string $programmingLanguages,
+        string $userDescription
+    ): bool {
+        $sql = 'UPDATE `users` '
+                .'SET `FirstName`= :firstName,'
+                    .'`LastName` = :lastName,'
+                    .'`Email` = :email,'
+                    .'`Gender` = :gender,'
+                    .'`ProgramingLanguages` = :programmingLanguages,'
+                    .'`Description` =  :userDescription '
+                .'WHERE `username` = :username;';
         $params = [
             ':firstName' => $firstName,
             ':lastName' => $lastName,
@@ -75,11 +82,9 @@ class ProfileModel
             ':username' => $username,
         ];
 
-        // bind params to query and execute query
         $query = $this->dbConnection->prepare($sql);
         $query->execute($params);
 
-        // check for updated rows
-        return $query->rowCount();
+        return (bool) $query->rowCount();
     }
 }

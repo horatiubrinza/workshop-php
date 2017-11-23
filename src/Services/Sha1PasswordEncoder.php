@@ -4,17 +4,13 @@ namespace ZWorkshop\Services;
 
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
-
+/**
+ * The application password encoder.
+ */
 class Sha1PasswordEncoder implements PasswordEncoderInterface
 {
-
     /**
-     * Encodes the raw password.
-     *
-     * @param string $raw The password to encode
-     * @param string $salt The salt
-     *
-     * @return string The encoded password
+     * {@inheritdoc}
      */
     public function encodePassword($raw, $salt)
     {
@@ -22,16 +18,10 @@ class Sha1PasswordEncoder implements PasswordEncoderInterface
     }
 
     /**
-     * Checks a raw password against an encoded password.
-     *
-     * @param string $encoded An encoded password
-     * @param string $raw A raw password
-     * @param string $salt The salt
-     *
-     * @return bool true if the password is valid, false otherwise
+     * {@inheritdoc}
      */
     public function isPasswordValid($encoded, $raw, $salt)
     {
-        return $encoded == sha1($raw);
+        return $encoded === sha1($raw);
     }
 }

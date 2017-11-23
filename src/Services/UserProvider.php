@@ -8,13 +8,18 @@ use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
+/**
+ * The user provider.
+ */
 class UserProvider implements UserProviderInterface
 {
-    /** @var \PDO */
+    /**
+     * @var \PDO
+     */
     private $conn;
 
     /**
-     * UserProvider constructor.
+     * The user provider constructor.
      *
      * @param \PDO $conn
      */
@@ -24,17 +29,12 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * Loads an user by username
-     *
-     * @param string $username
-     * @return User
+     * {@inheritdoc}
      */
     public function loadUserByUsername($username)
     {
         $query = $this->conn->prepare('SELECT * FROM users WHERE username = :username');
-        $query->execute([
-            ':username' => strtolower($username)
-        ]);
+        $query->execute([':username' => strtolower($username)]);
 
         if (!$user = $query->fetch(\PDO::FETCH_ASSOC)) {
             throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
@@ -44,8 +44,7 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * @param UserInterface $user
-     * @return User|UserInterface
+     * {@inheritdoc}
      */
     public function refreshUser(UserInterface $user)
     {
@@ -57,11 +56,10 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * @param string $class
-     * @return bool
+     * {@inheritdoc}
      */
     public function supportsClass($class)
     {
-        return $class === 'Symfony\Component\Security\Core\User\User';
+        return User::class === $class;
     }
 }

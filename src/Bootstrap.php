@@ -9,31 +9,34 @@ use Silex\Provider\RoutingServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TwigServiceProvider;
-
 use ZWorkshop\Services\Sha1PasswordEncoder;
 use ZWorkshop\Services\UserProvider;
 
+/**
+ * The application bootstrap.
+ */
 class Bootstrap
 {
-    static public function init(Application $app)
+    /**
+     * Initializes the application.
+     *
+     * @param Application $app
+     */
+    public static function init(Application $app): void
     {
-        //register config service provider
-        $app->register(new YamlConfigServiceProvider(__DIR__ . '/../config/settings.yml'));
+        // Register config service provider.
+        $app->register(new YamlConfigServiceProvider(__DIR__.'/../config/settings.yml'));
 
-        //register PDO service provider
-        $app->register(new PDOServiceProvider(), [
-            'pdo.options' => $app['config']['pdo.options'],
-        ]);
+        // Register PDO service provider.
+        $app->register(new PDOServiceProvider(), ['pdo.options' => $app['config']['pdo.options']]);
 
-        //register Twig service provider
-        $app->register(new TwigServiceProvider(), [
-            'twig.path' => __DIR__ . '/../src/Views',
-        ]);
+        // Register Twig service provider.
+        $app->register(new TwigServiceProvider(), ['twig.path' => __DIR__ . '/../src/Views']);
 
-        //register session service provider
+        // Register session service provider.
         $app->register(new SessionServiceProvider());
 
-        //register security service provider
+        // Register security service provider.
         $app->register(new SecurityServiceProvider(), [
             'security.firewalls'       => [
                 'admin' => [
@@ -57,10 +60,10 @@ class Bootstrap
             },
         ]);
 
-        //register routing service provider; here we can find url_generator service
+        // Register routing service provider. Here we can find url_generator service.
         $app->register(new RoutingServiceProvider());
 
-        //set app debug mode
+        // Set app debug mode.
         $app['debug'] = $app['config']['debug'];
     }
 }
