@@ -49,7 +49,7 @@ class AdminController extends BaseController
             'firstName' => $userDetails['FirstName'],
             'lastName' => $userDetails['LastName'],
             'email' => $userDetails['Email'],
-            'gender' => $userDetails['Gender'],
+            //TODO: e2 - add gender field
             'programmingLanguages' => explode('|', $userDetails['ProgramingLanguages']),
             'description' => $userDetails['Description'],
             'images' => [],
@@ -73,7 +73,7 @@ class AdminController extends BaseController
             $firstName = $request->get('first_name');
             $lastName = $request->get('last_name');
             $email = $request->get('email');
-            $gender = $request->get('gender');
+            //TODO: e2 - add gender field
             //TODO: e3 - fix user description + add feedback messages
             $userDescription = '';
             $programmingLanguages = implode('|', $request->get('programming_languages'));
@@ -85,7 +85,6 @@ class AdminController extends BaseController
                     $firstName,
                     $lastName,
                     $email,
-                    $gender,
                     $programmingLanguages,
                     $userDescription
                 );

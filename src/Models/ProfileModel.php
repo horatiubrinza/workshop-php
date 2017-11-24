@@ -60,15 +60,14 @@ class ProfileModel
         string $firstName,
         string $lastName,
         string $email,
-        string $gender,
         string $programmingLanguages,
         string $userDescription
     ): bool {
+        //TODO: e2 - add gender field
         $sql = 'UPDATE `users` '
                 .'SET `FirstName`= :firstName,'
                     .'`LastName` = :lastName,'
                     .'`Email` = :email,'
-                    .'`Gender` = :gender,'
                     .'`ProgramingLanguages` = :programmingLanguages,'
                     .'`Description` =  :userDescription '
                 .'WHERE `username` = :username;';
@@ -76,7 +75,6 @@ class ProfileModel
             ':firstName' => $firstName,
             ':lastName' => $lastName,
             ':email' => $email,
-            ':gender' => $gender,
             ':programmingLanguages' => $programmingLanguages,
             ':userDescription' => $userDescription,
             ':username' => $username,
