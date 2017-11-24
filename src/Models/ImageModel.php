@@ -56,14 +56,15 @@ class ImageModel
      * @param string $fileName
      * @param string $emotions
      */
-    public function save(int $userId, string $fileName, string $emotions): void
+    public function save(int $userId, string $fileName): void
     {
-        $sql = 'INSERT INTO `images` (`IdUser`, `FileName`, `ProcessingResult`) '
-                .'VALUES (:idUser, :fileName, :processingResult)';
+        //TODO: e8 - save Emotion API results in db
+
+        $sql = 'INSERT INTO `images` (`IdUser`, `FileName`) '
+                .'VALUES (:idUser, :fileName)';
         $params = [
             ':idUser'           => $userId,
             ':fileName'         => $fileName,
-            ':processingResult' => $emotions,
         ];
 
         $query = $this->dbConnection->prepare($sql);

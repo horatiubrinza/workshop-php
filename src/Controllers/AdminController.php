@@ -130,13 +130,10 @@ class AdminController extends BaseController
             try {
                 $file->move(self::IMAGE_UPLOAD_DIR, $filename);
 
-                $imageUrl = self::IMAGE_UPLOAD_DIR.DIRECTORY_SEPARATOR.$filename;
-
-                $emotionApi = new EmotionService($app);
-                $emotions = json_encode($emotionApi->analyze($imageUrl));
+                //TODO: e8 - send image to Emotion API, save results in db
 
                 $imageModel = new ImageModel($app['pdo.connection']);
-                $imageModel->save($profile['IdUser'], $filename, $emotions);
+                $imageModel->save($profile['IdUser'], $filename);
 
                 $message = 'File was successfully uploaded!';
             } catch (FileException $e) {
