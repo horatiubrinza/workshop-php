@@ -125,19 +125,7 @@ class AdminController extends BaseController
         if (is_null($file)) {
             //TODO: e6 - add feedback messages on upload image
         } else {
-            $filename = uniqid('', true).'.'.$file->getClientOriginalExtension();
-            try {
-                $file->move(self::IMAGE_UPLOAD_DIR, $filename);
-
-                //TODO: e8 - send image to Emotion API, save results in db
-
-                $imageModel = new ImageModel($app['pdo.connection']);
-                $imageModel->save($profile['IdUser'], $filename);
-
-                //TODO: e6 - add feedback messages on upload image
-            } catch (FileException $e) {
-                //TODO: e6 - add feedback messages on upload image
-            }
+            //TODO: e5 - upload file, save file details in db
         }
 
         // Redirect with a message.
