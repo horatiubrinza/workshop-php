@@ -123,7 +123,7 @@ class AdminController extends BaseController
         $file = $request->files->get('file');
 
         if (is_null($file)) {
-            $message = 'No file uploaded!';
+            //TODO: e6 - add feedback messages on upload image
         } else {
             $filename = uniqid('', true).'.'.$file->getClientOriginalExtension();
             try {
@@ -134,15 +134,15 @@ class AdminController extends BaseController
                 $imageModel = new ImageModel($app['pdo.connection']);
                 $imageModel->save($profile['IdUser'], $filename);
 
-                $message = 'File was successfully uploaded!';
+                //TODO: e6 - add feedback messages on upload image
             } catch (FileException $e) {
-                $message = 'File uploaded, but could not be moved!';
+                //TODO: e6 - add feedback messages on upload image
             }
         }
 
         // Redirect with a message.
         $redirectUrl = '/admin';
-        $request->getSession()->set('message', $message);
+        //TODO: e6 - add feedback messages on upload image
 
         return $app->redirect($redirectUrl);
     }
