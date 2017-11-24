@@ -9,7 +9,7 @@ use Silex\Provider\RoutingServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TwigServiceProvider;
-use ZWorkshop\Services\Sha1PasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 use ZWorkshop\Services\UserProvider;
 
 /**
@@ -56,7 +56,7 @@ class Bootstrap
                 ]
             ],
             'security.default_encoder' => function () {
-                return new Sha1PasswordEncoder();
+                return new PlaintextPasswordEncoder();
             },
         ]);
 
