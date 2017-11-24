@@ -74,7 +74,8 @@ class AdminController extends BaseController
             $lastName = $request->get('last_name');
             $email = $request->get('email');
             $gender = $request->get('gender');
-            $userDescription = $request->get('user_description');
+            //TODO: e3 - fix user description + add feedback messages
+            $userDescription = '';
             $programmingLanguages = implode('|', $request->get('programming_languages'));
 
             $profileModel = new ProfileModel($app['pdo.connection']);
@@ -90,17 +91,15 @@ class AdminController extends BaseController
                 );
 
                 // Check for updated rows.
-                $message = $result ? 'Successfully updated user data!' : 'User data was not changed!';
+                //TODO: e3 - fix user description + add feedback messages
             } catch (\Throwable $e) {
-                $message = 'An error occurred, the data was not updated! ';
+                //TODO: e3 - fix user description + add feedback messages
             }
         }
 
         // Redirect with a message.
         $redirectUrl = '/admin';
-        if (!empty($message)) {
-            $request->getSession()->set('message', $message);
-        }
+        //TODO: e3 - fix user description + add feedback messages
 
         return $app->redirect($redirectUrl);
     }
