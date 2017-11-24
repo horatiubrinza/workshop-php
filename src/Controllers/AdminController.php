@@ -162,23 +162,6 @@ class AdminController extends BaseController
      */
     public function deleteImage(Application $app, Request $request, int $imageId): RedirectResponse
     {
-        $imageModel = new ImageModel($app['pdo.connection']);
-        $image = $imageModel->get($imageId);
-
-        $filePath = self::IMAGE_UPLOAD_DIR.DIRECTORY_SEPARATOR.$image['FileName'];
-        if (is_file($filePath)) {
-            unlink($filePath);
-        }
-
-        $message = 'Successfully deleted image!';
-        if (!$imageModel->delete($imageId)) {
-            $message = 'An error occurred, the image was not deleted.';
-        }
-
-        // Redirect with a message.
-        $redirectUrl = '/admin';
-        $request->getSession()->set('message', $message);
-
-        return $app->redirect($redirectUrl);
+        //TODO: e9 - delete image
     }
 }

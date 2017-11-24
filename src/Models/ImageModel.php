@@ -88,21 +88,5 @@ class ImageModel
         return $query->fetch(\PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Deletes the image with the given id.
-     *
-     * @param int $imageId
-     *
-     * @return bool True if the image was deleted successfully.
-     */
-    public function delete($imageId): bool
-    {
-        $sql = 'DELETE FROM `images` WHERE `IdImage` = :imageId;';
-        $params = [':imageId' => $imageId];
-
-        $query = $this->dbConnection->prepare($sql);
-        $query->execute($params);
-
-        return (bool) $query->rowCount();
-    }
+    //TODO: e9 - delete image
 }
