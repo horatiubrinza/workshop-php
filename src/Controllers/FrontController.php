@@ -47,15 +47,14 @@ class FrontController extends BaseController
             $app->abort(Response::HTTP_NOT_FOUND, sprintf('Username %s does not exist.', $username));
         }
 
-        $imageModel = new ImageModel($dbConnection);
-        $userImages = $imageModel->getUserCollection($username);
+        //TODO: e7 - list images
 
         return $this->render($app, 'profile.html.twig', [
             'title' => 'Profile Page',
             'username' => $userData['Username'],
             'firstName' => $userData['FirstName'],
             'lastName' => $userData['LastName'],
-            'images' => $userImages,
+            'images' => [],
         ]);
     }
 

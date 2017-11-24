@@ -36,8 +36,7 @@ class AdminController extends BaseController
         $userDetails = $profileModel->get($username);
 
         // Get user images.
-        $imageModel = new ImageModel($app['pdo.connection']);
-        $userImages = $imageModel->getUserCollection($username);
+        //TODO: e7 - list images
 
         // Get message from session and delete it afterwards.
         $session = $request->getSession();
@@ -53,7 +52,7 @@ class AdminController extends BaseController
             'gender' => $userDetails['Gender'],
             'programmingLanguages' => explode('|', $userDetails['ProgramingLanguages']),
             'description' => $userDetails['Description'],
-            'images' => $userImages,
+            'images' => [],
             'message' => $message,
         ]);
     }
